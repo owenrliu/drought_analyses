@@ -1,0 +1,218 @@
+
+## Summary Supply-Side Statistics on Urban Water Districts in California
+This is a first attempt at exploring the data that members of Bren 595PB collected from the >400 Urban Water Management Plans (UWMPs) in California.  In a first step towards characterizing the vulnerability of water districts to drought, we compiled data on the supply and use of water in the districts.  The analysis below is a preliminary look at the supply side, with two main goals:
+
+* What is the breakdown of supply sources for the districts (e.g., surface water vs. groundwater vs. imported water)
+
+* What is a valid way to assess the diversity of water supply for a given district? We'll explore 2 ways.
+
+Because we're working from a raw dataset, first we need to import and clean the data.
+
+```{r libraries, include=FALSE}
+library(data.table)
+library(ggplot2)
+library(reshape2)
+library(dplyr)
+library(vegan)
+library(knitr)
+
+## multiplot function for later
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  library(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+```
+
+
+```{r data import}
+## Supply-Side "adaptive capacity" preliminary data analysis
+## NOTE: THIS CODE SHOULD WORK WITH ANY VERSION OF THE DATA
+
+## Read in the data
+workingdir <- getwd()
+dat <- read.csv(file=paste(workingdir,'/data/All district analysis_Master_11_19_15.csv',sep=''))
+```
+
+Then, we can isolate the supply data only
+
+```{r supply data}
+## Pull out just supply data (i.e., discard use)
+## NOTE: BE CAREFUL WITH COLUMN #s when using a new version of the raw data, as columns may have been added or deleted
+
+# Remove extraneous, no-data columns
+dat<-dat[,-(102:117)]
+
+# Our new dataset will be just those with information about water supply
+supply <- dat[,1:91]
+```
+
+Because these data are imported from an Excel file, we need to change some variable names to make it easier to work with them.  The columns changed are:
+
+* tot: Total Supply
+
+* ground: Local Groundwater
+
+* surf: Local Surface Water
+
+* desal: Desalinated Water
+
+* recyc: Recycled Water
+
+* bank: Banked Water
+
+* nonpot: Notpotable or "Other" Water (particular designation by some districts)
+
+```{r renaming variables, warning=FALSE}
+## Here, we change some names to be shorter and easier to work with
+names(supply)[4:10] <- c('tot','ground','surf','desal','recyc','bank','nonpot')
+
+## Also, convert the districts' unique identifiers (PWSID column) to simple numbers by removing the 'CA'
+supply$PWSID<-as.numeric(gsub("CA",'',supply$PWSID))
+
+## function to turn factor vector to numeric vector (introduces NAs for blank cells, so will throw warnings)
+f2n <- function(x) as.numeric(as.character(x))
+
+## Convert all columns that should contain numbers to numeric rather than factor vectors
+supply[,4:91] <- apply(supply[,4:91],MARGIN=2,FUN=f2n)
+
+# replace NA with zero for source columns (but not for the total column)
+supply[,5:11][is.na(supply[,5:11])] <- 0
+
+```
+
+The rest of the columns (variables) in the data denote specific wholesalers.  For now, we will combine those data into one category.
+
+```{r combine wholesalers}
+## The wholesalers begin in column 11 and go to the end (column 91)
+# NOTE: AGAIN, IF A NEW VERSION OF THE RAW DATA, CHECK COLUMN NAMES
+
+## Sum across the rows of wholesalers, excluding NAs (because they represent zeros)
+wholesale <- rowSums(supply[,11:length(supply)],na.rm=TRUE)
+
+# Now, reattach it as a column to the data and remove the individual wholesaler columns
+supply <- supply[,-(11:length(supply))]
+supply <- cbind(supply,wholesale)
+
+# Now the data look like this
+datasamp<-head(supply)
+kable(datasamp)
+```
+
+We also need to remove rows with incomplete data, in other words those rows for which data has not yet been collected or there is some issue with the supply-side data.  This chunk of code will do that.
+
+```{r remove incomplete data}
+## Function to determine number of NAs in a vector
+numna <- function(x) sum(is.na(x))
+
+numna(supply$tot)
+
+## There are 143 rows with no supply total, so let's remove those for now
+supply<-supply[!is.na(supply$tot),]
+
+## Also, for now we only want to include 'clean' supply breakdowns, i.e. those where the categories actually add up to the total
+
+# sum the sources
+sum.check <- rowSums(supply[,5:11],na.rm=T)
+
+# compare to the total and only keep those that match
+supply <- subset(supply,supply$tot%in%sum.check)
+
+
+```
+
+Our 'final' dataset (for now) contains info for 239 water districts, and now we can look at some summary statistics
+```{r quick summary}
+summary(supply$tot)
+
+# Proportions from each source type, obtained by dividing each source by total supply for that district
+props <- as.data.frame(apply(supply[,5:11],MARGIN=2,FUN=function(x)x/supply$tot))
+# Melt the data for plotting
+props <- melt(props)
+
+## Boxplot of proportion data
+ggplot() + geom_boxplot(aes(x=variable,y=value),data=props) + labs(title='Proportion by Source Type',x='Source',y='Proportion')
+```
+
+This is messy data, but we can already see that in general, districts are relying much more on groundwater or wholesalers to provide their water than they are on any other source. Obviously there are many exceptions, but the median values for percent of water from surface, desalination, recycling, banking, and nonpotable/other are all close to zero, while the median for proportion groundwater is close to 50% and for wholesale, around 40%.
+
+Next, we can calculate two metrics of supply diversity that we can apply to the districts.  The first is the Simpson diversity index (in ecology; or the Herfindahl–Hirschman index (HHI) in economics), which is a weighted arithmetic mean of the values of interest (in this case, the supply sources).
+
+```{r Simpson diversity}
+library(vegan)
+
+# Obviously, we want to use just the columns of interest
+simpson <- diversity(supply[,5:11],index="simpson")
+simpson <- as.data.frame(cbind(supply$PWSID,simpson))
+
+ggplot(data=simpson) + geom_histogram(aes(x=simpson),binwidth=0.125) + labs(title='Distribution of Simpson Diversity Metric',x='Diversity Score',y='Count') +xlim(c(0,1))
+```
+
+
+Another metric to look at is a standardized abundance rank curve.  In this method, water source volumes for a given district are standardized by dividing the volume by the maxmum volume value.  You can then plot the rank abundance curve, and the metric is the area under the curve.  Districts with a more even distribution of sources will score higher, like so:
+```{r sort sum example, echo=FALSE}
+
+sampdata1 <- c(15,19,49,3,2)
+
+sampdata2 <- c(17,16,19,20,16)
+
+sampdata <- data.frame(rank=1:5,ex1=sort(sampdata1)/max(sampdata1),ex2=sort(sampdata2)/max(sampdata2))
+
+sampdata1.plot <- ggplot(aes(x=rank,y=ex1),data=sampdata) + geom_line()+ylim(c(0,1)) +xlab('source rank')+ylab('standardized volume')
+sampdata2.plot <- ggplot(aes(x=rank,y=ex2),data=sampdata) + geom_line() +ylim(c(0,1)) +xlab('source rank')+ylab('standardized volume')
+multiplot(sampdata1.plot,sampdata2.plot,cols=2)
+```
+
+The example on the right will obviously have a higher score on this metric, as its total supply is more evenly distributed amongst different sources
+
+```{r sortsum code}
+## This function calculates the metric for a given vector
+sortsum <- function(x) sum(sort(x)/max(x))
+
+# for our examples:
+sortsum(sampdata1)
+sortsum(sampdata2)
+```
+
+The example on the left scored 1.8, while the example on the right scored 4.4. The minimum score is 1, and the maximum possible is the total number of sources.  Let's go ahead and calculate this index for our data, and then compare it to our Simpson Index.
+
+```{r sortsum applied}
+sortsum.ind <- apply(supply[,5:11],MARGIN=1,FUN=sortsum)
+indices <- as.data.frame(cbind(simpson,sortsum.ind))
+indices.melt <- melt(indices,id='V1')
+
+simp<-ggplot(data=simpson) + geom_histogram(aes(x=simpson),binwidth=0.125) + labs(title='Distribution of Simpson Diversity Metric',x='Diversity Score',y='Count') +xlim(c(0,1))
+
+ranksum<-ggplot(data=indices) + geom_histogram(aes(x=sortsum.ind),binwidth=0.25) + labs(title='Distribution of Rank Sum Diversity Metric',x='Diversity Score',y='Count') +xlim(c(1,3))
+multiplot(simp,ranksum,cols=2)
+```
