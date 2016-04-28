@@ -1,0 +1,140 @@
+---
+title: "district_stats"
+author: "Owen Liu"
+date: "April 19, 2016"
+output: html_document
+---
+
+```{r packages and useful functions, echo=FALSE}
+library(gclus)
+#### panelutils.R ####
+#
+# License: GPL-2 
+# Author: Francois Gillet, 23 August 2012
+#
+## Put Pearson, Spearman or Kendall correlations on the upper panel
+panel.cor <- function(x, y, method="pearson", digits=3, cex.cor=1.2, no.col=FALSE)
+{
+	usr <- par("usr"); on.exit(par(usr))
+	par(usr = c(0, 1, 0, 1))
+	r <- cor(x, y, method=method)
+	ra <- cor.test(x, y, method=method)$p.value
+	txt <- round(r, digits)
+	prefix <- ""
+	if(ra <= 0.1) prefix <- "."
+	if(ra <= 0.05) prefix <- "*"
+	if(ra <= 0.01) prefix <- "**"
+	if(ra <= 0.001) prefix <- "***"
+	if(no.col)
+	{
+		color <- 1
+		if(r < 0) { if(ra <= 0.001) sig <- 4 else sig <- 3 }
+		else { if(ra <= 0.001) sig <- 2 else sig <- 1 }
+	}
+	else
+	{
+		sig <- 1
+		if(ra <= 0.001) sig <- 2
+		color <- 2
+		if(r < 0) color <- 4
+	}
+	txt <- paste(txt, prefix, sep="\n")
+	text(0.5, 0.5, txt, cex = cex.cor, font=sig, col=color)
+}
+ 
+ 
+## Put histograms on the diagonal
+panel.hist <- function(x, no.col=FALSE, ...)
+{
+	usr <- par("usr"); on.exit(par(usr))
+	par(usr = c(usr[1:2], 0, 1.5) )
+	his <- hist(x, plot=FALSE)
+	breaks <- his$breaks; nB <- length(breaks)
+	y <- his$counts
+	y <- y/max(y)
+	if(no.col) rect(breaks[-nB], 0, breaks[-1], y, col="gray", ...)
+	else rect(breaks[-nB], 0, breaks[-1], y, col="cyan", ...)
+}
+ 
+ 
+## Add black lowess curves to scatter plots
+panel.smoothb <- function (x, y, col=par("col"), bg=NA, pch=par("pch"), 
+	cex=1, col.smooth="black", span=2/3, iter=3, ...) 
+{
+	points(x, y, pch=pch, col=col, bg=bg, cex=cex)
+	ok <- is.finite(x) & is.finite(y)
+	if (any(ok)) 
+	lines(stats::lowess(x[ok], y[ok], f=span, iter=iter), col=col.smooth, ...)
+}
+ 
+ 
+#Usage:
+#pairs(num.mat, lower.panel=panel.smooth, upper.panel=panel.cor, diag.panel=panel.hist)
+#pairs(num.mat, lower.panel=panel.smooth, upper.panel=panel.cor, method="kendall")
+```
+
+Import the dataset:
+
+```{r data import}
+W_D <- getwd()
+wd.dat <- read.csv(file=paste(W_D,'/data/wd_w_inc_atts.csv',sep=""))
+wd.regions<-read.csv(file=paste(W_D,'/data/wd_w_regions.csv',sep=""))
+wd.tiers <- read.csv(file=paste(W_D,'/data/tier_structure.csv',sep=""))
+wd.dat<-merge(wd.dat,wd.regions,by.x="pwsid",by.y="pwsid")
+wd.dat<-merge(wd.dat,wd.tiers,by.x="pwsid",by.y="ID",all.x=TRUE)
+write.csv(wd.dat,file=paste0(W_D,'/data/wd_w_inc_atts.csv'))
+# fix names of Ray's variables
+names(wd.dat)[24:27] <- c("buyer_tier","seller_tier","sell_to","buy_from")
+# fix names of Jose's variables
+names(wd.dat)[30:35] <- c("pc_tot_15","pc_r_15","pc_tot_10","pc_r_10","roc_tot","roc_r")
+# fix name of median income column
+names(wd.dat)[36] <- "med_inc"
+wd.dat<-wd.dat[-37]
+```
+
+Quick looks at the variables and their relationships
+
+```{r prelim stats}
+attach(wd.dat)
+hist(roc_r)
+hist(population,breaks=15)
+hist(severity)
+hist(med_inc)
+hist(Number.of.Buyer.in.the.first.tier)
+hist(Number.of.Seller.in.the.first.tier)
+# subset of variables (to start with)
+c.vars <- names(wd.dat)[c(6:20,35:36)]
+vars <- wd.dat[,c.vars]
+i.vars <- c.vars[c(1:15,17)]
+#correlations (Pearson's r)
+vars.pearson <- cor(wd.dat[c.vars])
+round(vars.pearson,2)
+
+#ordered for plotting
+vars.o <- order.single(vars.pearson)
+op <- par(mfrow=c(1,1),pty="s")
+pairs(vars[,vars.o], lower.panel=panel.smooth,upper.panel=panel.cor, diag.panel=panel.hist, main="Pearson Correlation Matrix")
+par(op)
+
+# lm for rate of change
+summary(lm(formula=paste("roc_r ~ ",paste(i.vars, collapse="+"),sep = ""), data=vars, na.action = na.exclude))
+# very crudely, the significant effects that pop out are:
+# median income (+)
+# recycled (+)
+# proportion groundwater (-)
+
+plot(severity, roc_r, pch=20, xlab="Cumulative Weeks over Drought Level 3 since January 2013",
+     ylab="Percent Change in Residential Water Use, 2010-2015", main="Severity vs. Change in Use")
+lines(loess.smooth(severity,roc_r),col="red")
+abline(h=0,lty="dotted")
+abline(v=0,lty="dotted")
+
+plot(med_inc,roc_r, pch=20, main="Median Income vs. Residential Rate of Change in Water Use", xlab="Median Household Income",ylab="Percent Change in Per Capita Use, 2010-2015")
+abline(lm(roc_r~med_inc),col="red")
+text(150000,20,paste('Adj R2 = ',round(summary(lm(roc_r~med_inc))$adj.r.squared,4)),col='red')
+text(150000,10,paste("p-value = ",round(summary(lm(roc_r~med_inc))$coefficients['med_inc','Pr(>|t|)'],4)),col="blue")
+abline(h=0,lty="dotted")
+text(med_inc,roc_r,labels=as.character(pwsname),cex=0.5)
+
+rocr.inc <- data.frame(pwsid=pwsid,pwsname=as.character(pwsname),roc_r=roc_r,med_inc=med_inc)
+```

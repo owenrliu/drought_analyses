@@ -1,0 +1,311 @@
+ID,District Name,Number of  Tier of Buyers below this district,Number of  Tier of Seller above this district,Number of Buyer in the first tier,Number of Seller in the first tier
+110010,Alameda County Flood Control District- Zone 7 ,1,1,4,2
+110001,Alameda County Water District ,0,1,0,2
+2810005,"American Canyon, City of ",0,2,0,3
+3010001,"Anaheim, City of ",0,2,0,1
+1510053,Antelope Valley East Kern Water Agency ,1,1,3,1
+710001,"Antioch, City of ",0,2,0,1
+1910003,"Arcadia, City of ",0,2,0,1
+1210021,"Arcata, City of ",0,1,0,1
+1510031,"Bakersfield, City of ",0,3,0,2
+3310002,Beaumont-Cherry Valley Water District ,0,2,0,1
+4510014,Bella Vista Water District ,0,3,0,2
+4810001,"Benecia, City of ",0,2,0,3
+1910156,"Beverly Hills, City of ",0,2,0,1
+3610045,"Big Bear Lake, City of ",0,2,0,1
+1310001,"Brawley, City of ",0,1,0,1
+3010002,"Brea, City of ",0,3,0,2
+710004,"Brentwood,City of ",0,2,0,1
+3010003,"Buena Park, City of ",0,3,0,1
+NA,Buena Vista Water Storage District ,3,0,2,0
+1910179,"Burbank, City of ",0,2,0,1
+NA,Byron-Bethany Irrigation District ,2,0,1,0
+3910001,CA Water Sercice Co - Stockton ,0,2,0,1
+1500333,CA Water Service Co - Antelope Valley ,0,2,0,1
+1510003,CA Water Service Co - Bakersfield ,1,2,1,1
+4110006,CA Water Service Co - Bear Gulch ,0,1,0,1
+1910033,CA Water Service Co - Dominguez District ,0,3,0,1
+1910036,CA Water Service Co - East Los Angeles District ,0,3,0,1
+1910134,CA Water Service Co - Hermosa Redondo District ,0,3,0,1
+110003,CA Water Service Co - Livermore ,0,2,0,1
+4310001,Ca Water Service Co - Los Altos Suburban District ,0,2,0,1
+4110008,CA Water Service Co - Mid Peninsula District ,0,1,0,1
+410005,CA Water Service Co - Oroville ,0,1,0,2
+1910104,CA Water Service Co - Palos Verdes ,0,3,0,1
+4910018,CA Water Service Co - Redwood Valley ,0,1,0,2
+4110009,CA Water Service Co - South San Francisco ,0,1,0,1
+1910052,CA-American Water - Los Angeles ,0,3,0,3
+3410012,CA-American Water - Sacramento ,0,3,0,3
+3710001,CA-American Water - San Diego ,0,4,0,1
+5610040,CA-American Water - Ventura ,0,3,0,1
+510017,Calaveras County Water District ,2,0,1,0
+NA,California Domestic Water Company ,1,0,3,0
+5610050,Calleguas Municipal Water District ,2,2,8,1
+5610019,"Camarillo, City of ",0,3,0,1
+5610063,Camrosa Water District ,0,3,0,1
+3710005,Carlsbad Municipal Water District ,0,3,0,1
+4210001,Carpenteria Valley Water District ,0,1,0,2
+5610024,Casitas Municipal Water District ,1,0,2,0
+1910048,Castaic Lake Water Agency ,2,1,2,3
+1910017,Castaic Lake Water Agency Santa Clarita Water Division ,1,2,1,1
+1910253,Central Basin Municipal Water District ,2,2,14,1
+NA,Central Coast Water Authority ,1,1,3,1
+NA,Central Valley Project ,2,0,7,0
+1910019,"Cerritos, City of ",1,3,1,1
+3310083,Chino Basin Desalter Authority City of ,5,0,5,0
+3610036,"Chino Hills, City of ",0,6,0,3
+3610012,"Chino, City of ",0,3,0,2
+3410006,Citrus Heights Water District ,0,3,0,1
+1010003,"Clovis, City of ",0,1,0,1
+4110011,Coastside Co Water District ,0,1,0,1
+NA,Colorado River Aqueduct ,6,0,1,0
+3610014,"Colton, City of ",0,2,0,1
+1910026,"Compton, City of ",0,2,0,1
+710003,Contra Costa Water District ,1,1,6,2
+3310037,"Corona, City of ",0,4,0,1
+1910128,Covina Irrigating Company ,1,0,3,0
+1910028,Crescenta Valley Water District ,0,3,0,1
+NA,Cresline-Lake Arrowhead Water Agency ,1,1,2,1
+3610015,Crestline Village Water District ,0,2,0,1
+3610018,Cucamonga Valley Water District ,0,3,0,1
+4110013,"Daly City, City of ",0,1,0,1
+3310005,Desert Water Agency ,0,1,0,1
+710007,Diablo Water District ,0,2,0,1
+110009,Dublin San Ramon Service District ,0,2,0,1
+NA,East Contra Costa Irrigation District ,2,0,1,0
+1510006,East Niles Community Services District ,0,2,0,1
+3010068,East Orange County Water District ,1,3,2,1
+4110024,"East Palo Alto, City of ",0,1,0,1
+3310009,Eastern Municipal Water District ,2,2,4,1
+1310004,"El Centro, City of ",0,1,0,1
+910001,El Dorado Irrigation District ,0,1,0,1
+3010079,El Toro Water District ,0,3,0,1
+3410008,Elk Grove Water District ,0,2,0,1
+3310012,Elsinore Valley Municipal Water District ,0,2,0,1
+3710006,"Escondido, City of ",0,3,0,1
+4110021,Estero Municipal-Foster City ,0,1,0,1
+1210004,"Eureka, City of ",1,1,1,1
+3410009,Fair Oaks Water District ,0,3,0,1
+4810003,"Fairfield, City of ",0,2,0,1
+3710008,Fallbrook PUD ,0,3,0,1
+3410014,"Folsom, City of ",0,3,0,4
+1910032,Foothill Municipal Water District ,1,2,4,1
+3010069,"Fountain Valley, City of ",0,2,0,1
+NA,Fresno Irrigation District ,1,0,2,0
+1010007,"Fresno, City of ",0,1,0,2
+3410023,Fruitridge Vista Water Co ,0,1,0,1
+3010010,"Fullerton, City of ",0,2,0,1
+3010062,"Garden Grove, City of ",0,3,0,1
+1910043,"Glendale, City of ",0,2,0,1
+1910044,"Glendora, City of ",1,3,1,1
+1910004,Golden State Water Company - Artesia ,0,4,0,1
+710002,Golden State Water Company - Bay Point ,0,2,0,1
+1910011,Golden State Water Company - Bell-Bell Gardens ,0,3,0,1
+1910024,Golden State Water Company - Claremont ,0,3,0,1
+3010047,Golden State Water Company - Cowan Heights ,0,4,0,1
+1910030,Golden State Water Company - Culver City ,0,3,0,1
+1910077,Golden State Water Company - Florence-Graham ,0,3,0,1
+1910098,Golden State Water Company - Norwalk ,0,3,0,1
+5610014,Golden State Water Company - Ojai ,0,1,0,1
+4210016,Golden State Water Company - Orcutt ,0,2,0,1
+3010035,Golden State Water Company - Placentia ,0,3,0,1
+1910142,Golden State Water Company - San Dimas ,0,3,0,2
+5610059,Golden State Water Company - Simi Valley ,0,3,0,1
+1910223,Golden State Water Company - South San Gabriel ,0,3,0,1
+1910155,Golden State Water Company - Southwest ,0,3,0,1
+3010022,Golden State Water Company - West Orange ,0,4,0,2
+4210004,Goleta Water District ,0,1,0,2
+5510009,Groveland Community Services District ,0,1,0,1
+1910047,"Hawthorne, City of ",0,3,0,1
+110006,"Hayward, City of ",0,1,0,1
+3710010,Helix Water District ,0,3,0,1
+3610073,Hi-Desert WD ,0,2,0,1
+4110016,"Hillsborough, Town of ",0,1,0,1
+3510001,Hollister Urban Area ,0,1,0,1
+1210013,Humboldt Bay Municipal Water District ,2,0,4,0
+1210009,Humboldt Community Services District ,0,2,0,2
+3010053,"Huntington Beach, City of ",0,3,0,1
+1910049,"Huntington Park, City of ",0,3,0,1
+NA,Imperial Irrigation District ,1,0,3,0
+1310006,"Imperial, City of ",0,1,0,1
+1910051,"Inglewood, City of ",0,3,0,1
+NA,Inland Empire Utilities Agency ,4,2,5,2
+3010092,Irvine Ranch Water District ,0,3,0,1
+3310021,Jurupa Community Services District ,0,1,0,2
+1510040,Kern County Water Agency Improvement District No 4 ,2,1,5,1
+3010018,"La Habra, City of ",0,3,0,2
+3010100,"La Palma, City of ",0,3,0,1
+1910062,"La Verne, City of ",0,3,0,1
+3010017,Laguna Beach County Water District ,0,3,0,1
+3310022,Lake Hemet Municipal Water District ,0,3,0,1
+3710013,Lakeside Water District ,0,3,0,1
+1910225,Las Virgenes Water District ,0,2,0,1
+1910063,Lincoln Avenue Water Company ,0,3,0,1
+3110004,"Lincoln, City of ",0,2,0,1
+110011,"Livermore, City of ",0,2,0,1
+1910073,"Lomita, City of ",0,3,0,1
+1910065,Long Beach Water Department ,0,2,0,1
+1910204,Los Angeles County Water District #29 ,0,3,0,1
+      ,Los Angeles County Water District #40 ,0,1,0,1
+1910067,Los Angeles Department of Water and Power ,0,2,0,1
+1910079,"Lynwood, City of ",0,3,0,1
+1910083,"Manhattan Beach, City of ",0,3,0,1
+2110002,Marin Municipal Water District ,0,1,0,1
+710006,"Martinez, City of ",0,2,0,1
+1210016,McKinleyville Community Services District ,0,1,0,1
+NA,Mendocino County Russian River Flood Control and Water Conservation Improvement District ,1,0,1,0
+4110017,"Menlo Park, City of ",0,1,0,1
+3010004,Mesa Consolidated Water District ,0,3,0,1
+1910087,Metropolitan Water District of Southern California ,5,1,29,2
+4110001,Mid-Peninsula Water District ,0,1,0,1
+4110018,"Millbrae, City of ",0,1,0,1
+4310005,"Milpitas, City of ",0,2,0,2
+5010038,Modesto Irrigation District ,1,0,1,0
+5010033,"Modesto, City of ",0,1,0,1
+,Mojave Water Agency ,1,1,1,1
+3610029,Monte Vista Water District ,1,5,1,3
+4010011,"Morro Bay, City of ",0,1,0,1
+3010073,Moulton Niguel Water District ,0,3,0,1
+4310007,"Mountain View, City of ",0,2,0,2
+,Municipal Water District of Orange County ,2,2,25,1
+2810003,"Napa, City of ",1,1,1,1
+,Nevada Irrigation District ,0,1,0,1
+1910096,Newhall County Water District ,0,2,0,1
+3010023,"Newport Beach, City of ",0,3,0,1
+NA,Nickel Water ,3,0,1,0
+4110025,North Coast County Water District ,1,1,1,1
+2110003,North Marin Water District ,0,1,0,1
+1510041,North of The River Municipal Water District ,1,2,1,1
+3710014,"Oceanside, City of ",0,3,0,1
+1510015,Oildale Mutual Water Company ,0,3,0,1
+3710029,"Olivenhain, City of ",0,3,0,1
+3610034,"Ontario, City of ",0,4,0,2
+3410016,Orange Vale Water Company ,0,3,0,1
+3010027,"Orange, City of ",0,3,0,1
+1910101,Orchard Dale Water District ,0,3,0,1
+3710034,Otay Water District ,0,3,0,1
+5610007,"Oxnard, City of ",0,3,0,2
+NA,Pacific Gas and Electric Company ,3,0,3,0
+3710037,Padre Dam Municipal Water District ,0,3,0,1
+1910102,Palmdale Water District ,1,1,1,1
+4310009,"Palo Alto, City of ",0,1,0,1
+1910105,"Paramount, City of ",0,3,0,1
+1010021,Park Water Company ,0,3,0,1
+1910124,"Pasadena, City of ",1,2,1,1
+4910006,"Petaluma, City of ",0,1,0,1
+4010008,"Pismo Beach, City of ",0,1,0,2
+710008,"Pittsburg, City of ",0,2,0,1
+3110124,Placer County Water Agency ,2,1,5,1
+110008,"Pleasanton, City of ",0,2,0,1
+1910126,"Pomona, City of ",0,3,0,1
+5610080,Port Hueneme Water Agency ,1,3,1,2
+5610009,"Port Hueneme, City of ",0,4,0,1
+3710015,"Poway, City of ",0,4,0,2
+1910130,Quartz Hill Water District ,0,2,0,1
+3710016,Rainbow Municipal Water District ,0,3,0,1
+3710019,Ramona Municipal Water District ,0,3,0,1
+3310038,Rancho California Water District ,0,4,0,2
+3610037,"Redlands, City of ",0,2,0,1
+4110022,"Redwood City, City of ",0,1,0,1
+3610038,"Rialto, City of ",0,2,0,1
+3710044,Rincon del Diablo Municipal Water District ,0,3,0,1
+3410018,Rio Linda - Elverta Community Water District ,0,3,0,1
+3310031,"Riverside, City of ",0,4,0,1
+4910014,"Rohnert Park, City of ",0,1,0,1
+1510018,Rosamond Community Services District ,0,2,0,1
+NA,Rosedale-Rio Bravo Water Storage District ,1,0,1,0
+3110008,"Roseville, City of ",0,3,0,3
+1910194,Rowland Water District ,0,3,0,1
+3310044,Rubidoux Community Services District ,1,0,1,0
+1910140,Rubio Canyon Land & Water Assoc ,0,3,0,1
+3410002,Sacramento County Water Agency ,1,1,2,1
+3410001,Sacramento Suburban Water District ,1,2,2,3
+3410020,"Sacramento, City of ",2,0,3,0
+3610085,San Antonio Water Company ,3,0,2,0
+3610019,San Bernardino Valley Regional Urban Water Management Alliance ,1,1,6,1
+3610039,"San Bernardino, City of ",0,2,0,1
+4110023,"San Bruno, City of ",0,2,0,2
+5610017,"San Buenaventura, City of ",0,1,0,1
+3010036,"San Clemente, City of ",0,3,0,1
+3710042,San Diego County Water Authority ,2,2,20,1
+3710020,"San Diego, City of ",1,3,2,1
+3710021,San Dieguito Water District ,0,3,0,1
+3810011,San Francisco Public Utilities Commission ,2,0,25,0
+1910189,San Gabriel Valley Municipal Water District ,0,1,0,1
+1910039,San Gabriel Valley Water Company ,1,0,1,0
+NA,San Gorgonio Pass Water Agency ,1,1,2,1
+4310011,San Jose Water Company ,0,2,0,1
+4310020,"San Jose, City of ",0,2,0,2
+3010030,"San Juan Capistrano, City of ",0,3,0,1
+3410021,San Juan Water District ,1,2,5,2
+NA,San Luis Obispo  County Flood Control & Water Conservation District Zone 3 ,1,0,3,0
+4010009,"San Luis Obispo, City of ",0,1,0,1
+3010038,"Santa Ana, City of ",0,2,0,1
+4210010,"Santa Barbara, City of ",0,2,0,2
+4310027,Santa Clara Valley Water District ,1,1,7,3
+4310012,"Santa Clara, City of ",0,2,0,2
+4410010,"Santa Cruz, City of ",1,0,1,0
+3710023,Santa Fe Irrigation District ,0,3,0,1
+1910245,"Santa Fe Springs, City of ",0,3,0,2
+3010101,Santa Margarita Water District ,0,3,0,1
+4210011,"Santa Maria, City of ",0,2,0,1
+1910146,"Santa Monica, City of ",0,2,0,1
+4910009,"Santa Rosa, City of ",0,1,0,1
+3010041,"Seal Beach, City of ",1,3,1,1
+3010082,Serrano Water District ,0,3,0,1
+NA,Shasta County Water Agency ,1,0,1,0
+4510006,"Shasta Lake, City of ",0,1,0,2
+NA,Solano County Water Agency ,1,1,1,2
+4910020,Sonoma County Water Agency ,1,0,8,0
+4910012,"Sonoma, City of ",0,1,0,1
+4410017,Soquel Creek Water District ,0,1,0,1
+3010042,South Coast Water District ,0,3,0,1
+1910154,"South Pasadena, City of ",0,3,0,1
+5010040,South San Joaquin Irrigation District ,2,0,2,0
+NA,Southern California Water Company ,1,0,1,0
+NA,Squaw Valley Public Service District ,1,0,1,0
+NA,State Water Project ,6,0,27,0
+3910006,Stockton East Water District ,1,1,2,3
+3910012,"Stockton, City of ",0,2,0,1
+1910200,Suburban Water Systems - San Jose Hills ,0,4,0,4
+1910059,Suburban Water Systems Whittier-La Mirada ,0,3,0,3
+4310014,"Sunnyvale, City of ",0,2,0,2
+3710025,Sweetwater Authority ,0,3,0,1
+4910004,Sweetwater Springs Water District ,1,0,1,0
+3110010,Tahoe City Public Utility ,0,1,0,1
+1510020,Tehachapi Regional Alliance ,1,1,1,1
+1910041,Three Valleys Municipal Water District ,2,2,7,1
+1910213,"Torrance, City of ",0,3,0,2
+3010094,Trabuco Canyon Water District ,0,3,0,1
+3910011,"Tracy, City of ",0,1,0,2
+5610043,Triunfo Sanitation District ,0,3,0,1
+3010046,"Tustin, City of ",0,4,0,1
+2310003,"Ukiah, City of ",0,1,0,1
+NA,United States Bureau of Reclamation ,2,0,13,0
+5610046,United Water Conservation District ,2,0,2,0
+3610050,"Upland, City of ",2,4,1,3
+NA,Upper San Gabriel Valley Municipal Water ,1,2,4,1
+1910240,Valencia Water Company ,0,3,0,1
+3710002,Vallecitos Water District ,0,3,0,1
+4810007,"Vallejo, City of ",1,1,2,2
+3710026,Valley Center Municipal Water District ,0,3,0,1
+1910009,Valley County Water District ,0,3,0,2
+4910013,Valley of the Moon Water District ,0,1,0,1
+1910166,Valley Water Company ,0,3,0,1
+5610023,Ventura County Waterworks District #8 ,0,3,0,1
+1910167,"Vernon, City of ",0,3,0,1
+3710027,Vista Irrigation District ,0,3,0,1
+1910234,Walnut Valley Water District ,1,3,1,1
+3610006,Water Facilities Authority ,3,3,2,1
+NA,West Basin Municipal Water District ,1,2,11,1
+NA,West End Consolidated Water Company ,3,0,1,0
+1510022,West Kern Water District ,0,2,0,5
+3610004,West Valley Water District ,0,2,0,1
+4110027,Westborough Water District ,0,1,0,1
+3310049,Western Municipal Water District of Riverside ,1,3,3,2
+3010064,"Westminster, City of ",0,3,0,1
+4910017,"Windsor, town of Water District ",0,1,0,1
+NA,Yolo County Flood Control and Water Conservation District ,1,0,1,0
+3010037,Yorba Linda Water District ,0,3,0,1
+5110002,"Yuba City, City of ",0,1,0,1
+3610055,Yucaipa Valley Water District ,0,2,0,2
