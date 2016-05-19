@@ -7,6 +7,8 @@ output: html_document
 
 ```{r packages and useful functions, echo=FALSE}
 library(gclus)
+library(plyr)
+library(dplyr)
 #### panelutils.R ####
 #
 # License: GPL-2 
@@ -77,18 +79,30 @@ Import the dataset:
 
 ```{r data import}
 W_D <- getwd()
-wd.dat <- read.csv(file=paste(W_D,'/data/wd_final_28Apr2016.csv',sep=""))
+wd.dat.3reg <- read.csv(file=paste(W_D,'/data/wd_final_28Apr2016.csv',sep=""))
 
 # fix variable names for easier calls later (depends on version of data, CHECK THIS)
-wd.dat<-wd.dat[,-1]
-names(wd.dat) <- c('pwsid','district','severity','simpson','ground','surf','imported','recycled','desal','tot.source','propground','propsurf','propdesal','proprecyc','propbank','propimport','casgem','adj','totgpcd15','rgpcd15','totgpcd10','rgpcd10','changetot','changer','medinc','buyertier','sellertier','buyers','sellers','region')
-wd.dat$medinc<-wd.dat$medinc/1000
+wd.dat.3reg<-wd.dat.3reg[,-1]
+names(wd.dat.3reg) <- c('pwsid','district','severity','simpson','ground','surf','imported','recycled','desal','tot.source','propground','propsurf','propdesal','proprecyc','propbank','propimport','casgem','adj','totgpcd15','rgpcd15','totgpcd10','rgpcd10','changetot','changer','medinc','buyertier','sellertier','buyers','sellers','region')
+wd.dat.3reg$medinc<-wd.dat.3reg$medinc/1000
+
+# remove rows with zero in the change in use data
+
+wd.dat.3reg <- subset(wd.dat.3reg,wd.dat.3reg$changer!=0)
+
+# 3 region districts (UPDATED 5.18.16)
+three.reg <- read.csv(file=paste(W_D,'/data/wd_3_reg.csv',sep=""))
+three.reg <- three.reg[-2]
+names(three.reg) <- c('pwsid','region2')
+wd.dat.3reg<- left_join(wd.dat.3reg,three.reg,by=c("pwsid"))
+
+#write.csv(wd.dat.3reg,file=paste(W_D,'/data/wd_dat_5_12.csv',sep=""))
 ```
 
 Quick looks at the variables and their relationships
 
 ```{r prelim stats}
-# attach(wd.dat)
+# attach(wd.dat.3reg)
 # hist(roc_r)
 # hist(population,breaks=15)
 # hist(severity)
@@ -96,11 +110,11 @@ Quick looks at the variables and their relationships
 # hist(Number.of.Buyer.in.the.first.tier)
 # hist(Number.of.Seller.in.the.first.tier)
 # # subset of variables (to start with)
-# c.vars <- names(wd.dat)[c(6:20,35:36)]
-# vars <- wd.dat[,c.vars]
+# c.vars <- names(wd.dat.3reg)[c(6:20,35:36)]
+# vars <- wd.dat.3reg[,c.vars]
 # i.vars <- c.vars[c(1:15,17)]
 # #correlations (Pearson's r)
-# vars.pearson <- cor(wd.dat[c.vars])
+# vars.pearson <- cor(wd.dat.3reg[c.vars])
 # round(vars.pearson,2)
 # 
 # #ordered for plotting
@@ -135,68 +149,131 @@ Quick looks at the variables and their relationships
 Scatter plots by region for all major variables
 
 ```{r scatterplots}
-attach(wd.dat)
+attach(wd.dat.3reg)
 require(ggplot2)
 # for all scatterplots for now, the y-variable(dependent variable) is change in use (total), variable changetot
 # Continuous variables are severity, simpson, propground,propsurf,proprecyc,propimport,medinc,totgpcd15
 #Severity
-ggplot(data=wd.dat,aes(x=severity,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Drought Severity vs. Change in Residential Use") +xlab("Severity(Weeks at or Above Drought Monitor Category 3)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("severity.png")
+ggplot(data=wd.dat.3reg,aes(x=severity,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Drought Severity vs. Change in Residential Use") +xlab("Severity(Weeks at or Above Drought Monitor Category 3)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("severity.png")
 #Simpson
-ggplot(data=wd.dat,aes(x=simpson,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Source Diversity vs. Change in Residential Use") +xlab("Diversity of Sources (Simpson index)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("simpson.png")
+ggplot(data=wd.dat.3reg,aes(x=simpson,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Source Diversity vs. Change in Residential Use") +xlab("Diversity of Sources (Simpson index)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("simpson.png")
 #propground
-ggplot(data=wd.dat,aes(x=propground,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Groundwater vs. Change in Residential Use") +xlab("Proportion Groundwater") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("propground.png")
+ggplot(data=wd.dat.3reg,aes(x=propground,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Groundwater vs. Change in Residential Use") +xlab("Proportion Groundwater") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("propground.png")
 #propsurf
-ggplot(data=wd.dat,aes(x=propsurf,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Surface Water vs. Change in Residential Use") +xlab("Proportion Surface Water") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("propsurf.png")
+ggplot(data=wd.dat.3reg,aes(x=propsurf,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Surface Water vs. Change in Residential Use") +xlab("Proportion Surface Water") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("propsurf.png")
 #proprecyc
-ggplot(data=wd.dat,aes(x=proprecyc,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Recycled Water vs. Change in Residential Use") +xlab("Proportion Recycled Water") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("proprecyc.png")
+ggplot(data=wd.dat.3reg,aes(x=proprecyc,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Recycled Water vs. Change in Residential Use") +xlab("Proportion Recycled Water") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("proprecyc.png")
 #propimport
-ggplot(data=wd.dat,aes(x=propimport,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Imported Water vs. Change in Residential Use") +xlab("Proportion Surface Water") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("propimport.png")
+ggplot(data=wd.dat.3reg,aes(x=propimport,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Imported Water vs. Change in Residential Use") +xlab("Proportion Surface Water") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("propimport.png")
 #medinc
-ggplot(data=wd.dat,aes(x=medinc,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Median Income vs. Change in Residential Use") +xlab("Median Household Income (Thousands USD)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("medianincome.png")
+ggplot(data=wd.dat.3reg,aes(x=medinc,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Median Income vs. Change in Residential Use") +xlab("Median Household Income (Thousands USD)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("medianincome.png")
 #rgpcd10
-ggplot(data=wd.dat,aes(x=rgpcd10,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Residential Use 2010 vs. Change in Residential Use") +xlab("Residential Use (GPCD) 2010") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("residentialuse2010.png")
+ggplot(data=wd.dat.3reg,aes(x=rgpcd10,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Residential Use 2010 vs. Change in Residential Use") +xlab("Residential Use (GPCD) 2010") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("residentialuse2010.png")
 
 
 #Categorial/Binary variables- boxplots
 #groundwater sources
-ggplot(data=wd.dat,aes(factor(ground),changer,col=region)) + geom_boxplot() +ggtitle("Number of Groundwater Sources vs. Change in Residential Use") +xlab("Number of Groundwater Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("groundwatersources.png")
+ggplot(data=wd.dat.3reg,aes(factor(ground),changer,col=region2)) + geom_boxplot() +ggtitle("Number of Groundwater Sources vs. Change in Residential Use") +xlab("Number of Groundwater Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("groundwatersources.png")
 #surface water sources
-ggplot(data=wd.dat,aes(factor(surf),changer,col=region)) + geom_boxplot() +ggtitle("Number of Groundwater Sources vs. Change in Residential Use") +xlab("Number of Groundwater Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("surfacewatersources.png")
+ggplot(data=wd.dat.3reg,aes(factor(surf),changer,col=region2)) + geom_boxplot() +ggtitle("Number of Groundwater Sources vs. Change in Residential Use") +xlab("Number of Groundwater Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("surfacewatersources.png")
 #number of imported sources
-ggplot(data=wd.dat,aes(factor(imported),changer,col=region)) + geom_boxplot() +ggtitle("Number of Imported Water Sources vs. Change in Residential Use") +xlab("Number of Imported Water Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("importedsources.png")
+ggplot(data=wd.dat.3reg,aes(factor(imported),changer,col=region2)) + geom_boxplot() +ggtitle("Number of Imported Water Sources vs. Change in Residential Use") +xlab("Number of Imported Water Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("importedsources.png")
+
+# Total number of sources
+ggplot(data=wd.dat.3reg,aes(factor(tot.source),changer,col=region2)) + geom_boxplot() +ggtitle("Number of Total Water Sources vs. Change in Residential Use") +xlab("Number of Imported Water Sources") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("totalsources.png")
+
+
 #recyled (binary)
-ggplot(data=wd.dat,aes(factor(recycled),changer,col=region)) + geom_boxplot() +ggtitle("Recycled Water vs. Change in Residential Use") +xlab("Use of Recycled Water (No/Yes)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("recycled.png")
+ggplot(data=wd.dat.3reg,aes(factor(recycled),changer,col=region2)) + geom_boxplot() +ggtitle("Recycled Water vs. Change in Residential Use") +xlab("Use of Recycled Water (No/Yes)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("recycled.png")
 #desalination (binary)
-ggplot(data=wd.dat,aes(factor(desal),changer,col=region)) + geom_boxplot() +ggtitle("Desalination vs. Change in Residential Use") +xlab("Use of Desalinated Water (No/Yes)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("desal.png")
+ggplot(data=wd.dat.3reg,aes(factor(desal),changer,col=region2)) + geom_boxplot() +ggtitle("Desalination vs. Change in Residential Use") +xlab("Use of Desalinated Water (No/Yes)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("desal.png")
 
 # Nesting attributes
 # buyer tier
-ggplot(data=na.omit(wd.dat),aes(factor(buyertier),changer,col=region)) + geom_boxplot() +ggtitle("Buyer Tier vs. Change in Residential Use") +xlab("Buyer Tier (Levels Below in the Tree)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("buyertier.png")
+ggplot(data=na.omit(wd.dat.3reg),aes(factor(buyertier),changer,col=region2)) + geom_boxplot() +ggtitle("Buyer Tier vs. Change in Residential Use") +xlab("Buyer Tier (Levels Below in the Tree)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("buyertier.png")
 
 #seller tier
-ggplot(data=na.omit(wd.dat),aes(factor(sellertier),changer,col=region)) + geom_boxplot() +ggtitle("Seller Tier vs. Change in Residential Use") +xlab("Seller Tier (Levels Above in the Tree)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("sellertier.png")
+ggplot(data=na.omit(wd.dat.3reg),aes(factor(sellertier),changer,col=region2)) + geom_boxplot() +ggtitle("Seller Tier vs. Change in Residential Use") +xlab("Seller Tier (Levels Above in the Tree)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("sellertier.png")
+# selltier <- aov(changer ~ factor(sellertier),data=wd.dat.3reg[wd.dat.3reg$region2=="South",])
+# summary(selltier)
+# TukeyHSD(selltier)
+
+# both regions combined
+ggplot(data=na.omit(wd.dat.3reg),aes(factor(sellertier),changer)) + geom_boxplot() +ggtitle("Seller Tier vs. Change in Residential Use") +xlab("Seller Tier (Levels Above in the Tree)") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("sellertier_regions_comb.png")
 
 #direct buyers
-ggplot(data=wd.dat,aes(x=buyers,y=changer,col=region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Direct Buyers vs. Change in Residential Use") +xlab("Number of Direct Buyers") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("directbuyers.png")
+ggplot(data=wd.dat.3reg,aes(x=buyers,y=changer,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Direct Buyers vs. Change in Residential Use") +xlab("Number of Direct Buyers") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("directbuyers.png")
 
 #direct sellers
-ggplot(data=na.omit(wd.dat),aes(factor(sellers),changer,col=region)) + geom_boxplot() +ggtitle("Direct Sellers vs. Change in Residential Use") +xlab("Number of Direct Sellers") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
-ggsave("directsellers.png")
+ggplot(data=na.omit(wd.dat.3reg),aes(factor(sellers),changer,col=region2)) + geom_boxplot() +ggtitle("Direct Sellers vs. Change in Residential Use") +xlab("Number of Direct Sellers") +ylab("% Change in Residential Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("directsellers.png")
+
+```
+
+North vs. South vs. Central Valley boxplots
+
+```{r north south plots}
+# Use in 2010, Regions
+ggplot(data=na.omit(wd.dat.3reg),aes(region2,rgpcd10,col=region2)) + geom_boxplot() +ggtitle("2010 Residential Use by Region") +xlab("Region") +ylab("Residential Use, 2010 (GPCD)")
+#ggsave("Use_2010.png")
+use.reg <- aov(rgpcd10~region2,data=wd.dat.3reg) # ANOVA for significance
+summary(use.reg) 
+TukeyHSD(use.reg) # Tukey Honest sig differences between groups
+
+# Median income, Regions
+ggplot(data=na.omit(wd.dat.3reg),aes(region2,medinc,col=region2)) + geom_boxplot() +ggtitle("Median Income by Region") +xlab("Region") +ylab("Median Income (1000s USD)")
+#ggsave("North_South_Income.png")
+medinc.reg <- aov(medinc~region2,data=wd.dat.3reg) # ANOVA for significance
+summary(medinc.reg) 
+TukeyHSD(medinc.reg) # Tukey Honest sig differences between groups
+
+# Severity by region
+ggplot(data=na.omit(wd.dat.3reg),aes(region2,severity,col=region2)) + geom_boxplot() +ggtitle("Drought Severity by Region") +xlab("Region") +ylab("Drought Severity (Weeks at or above Drought Monitor 3")
+#ggsave("severity_north_south.png")
+sev.reg <- aov(severity~region2,data=wd.dat.3reg) # ANOVA for significance
+summary(sev.reg) 
+TukeyHSD(sev.reg) # Tukey Honest sig differences between groups
+
+# Change in Use,Regions
+ggplot(data=na.omit(wd.dat.3reg),aes(region2,changer,col=region2)) + geom_boxplot() +ggtitle("Change in Use by Region") +xlab("Region") +ylab("Change in Residential Use, 2010-2015 (GPCD)")
+#ggsave("Use_2010.png")
+changer.reg <- aov(changer~region2,data=wd.dat.3reg) # ANOVA for significance
+summary(changer.reg) 
+TukeyHSD(changer.reg) # Tukey Honest sig differences between groups
+```
+
+By adjudication status (groundwater, and change in use)
+
+Normal linear models
+
+```{r linear models}
+summary(lm(changer~medinc+region2+rgpcd10+sellertier,data=wd.dat.3reg))
+summary(lm(changer~medinc+region2+rgpcd10+severity,data=wd.dat.3reg))
+summary(lm(changer~medinc+region2+rgpcd10+severity+rgpcd10*region2,data=wd.dat.3reg))
+summary(lm(changer~medinc+region2+rgpcd10+severity+rgpcd10*region2+severity*region2,data=wd.dat.3reg))
+summary(lm(changer~medinc+region2+rgpcd10+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=wd.dat.3reg))
+summary(lm(changer~medinc+region2+rgpcd10+severity+rgpcd10*region2+severity*region2+medinc*region2,data=wd.dat.3reg))
+
+# without regions
+summary(lm(changer~medinc+rgpcd10+sellertier+severity,data=wd.dat.3reg))
+summary(lm(changer~medinc+rgpcd10+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=wd.dat.3reg))
 
 ```

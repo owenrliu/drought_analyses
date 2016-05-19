@@ -1,0 +1,370 @@
+pwsid,pwsname,Region_2
+0110001,Alameda County Water District,North
+0110003,CA Water Service Co - Livermore,North
+0110005,East Bay Municipal Utility District,North
+0110006,"Hayward, City of",North
+0110008,"Pleasanton, City of",North
+0110009,Dublin San Ramon Service District,North
+0110010,Alameda County Flood Control District- Zone 7,North
+0110011,"Livermore, City of",North
+0410002,CA Water Service Co - Chico Hamilton City District,Central Valley
+0410005,CA Water Service Co - Oroville,Central Valley
+0410007,Paradise Irrigation District,Central Valley
+0710001,"Antioch, City of",North
+0710002,Golden State Water Company - Bay Point,North
+0710003,Contra Costa Water District,North
+0710004,"Brentwood,City of",North
+0710006,"Martinez, City of",North
+0710007,Diablo Water District,North
+0710008,"Pittsburg, City of",North
+0810001,"Crescent City, City of",North
+0910001,El Dorado Irrigation District,Central Valley
+0910002,South Tahoe Public Utility District,Central Valley
+0910013,Georgetown Divide Public Utility District,Central Valley
+1010001,Bakman Water Company,Central Valley
+1010003,"Clovis, City of",Central Valley
+1010007,"Fresno, City of",Central Valley
+1010018,"Kerman, City of",Central Valley
+1010021,Park Water Company,Central Valley
+1010024,CA Water Service Co - Selma,Central Valley
+1010027,"Reedley, City of",Central Valley
+1110003,CA Water Service Co - Willows,Central Valley
+1210004,"Eureka, City of",North
+1210006,"Fortuna, City of",North
+1210009,Humboldt Community Services District,North
+1210013,Humboldt Bay Municipal WD,North
+1210016,McKinleyville Community Services District,North
+1210021,"Arcata, City of",North
+1310001,"Brawley, City of",South
+1310002,"Calexico, City of",South
+1310004,"El Centro, City of",South
+1310006,"Imperial, City of",South
+1500333,CA Water Service Co - Antelope Valley,South
+1510001,Arvin Community Services District,Central Valley
+1510003,CA Water Service Co - Bakersfield,Central Valley
+1510005,"Delano, City of",Central Valley
+1510006,East Niles Community Services District,Central Valley
+1510015,Oildale Mutual Water Company,Central Valley
+1510017,Indian Wells Valley Water District,South
+1510018,Rosamond Community Services District,South
+1510019,"Shafter, City of",Central Valley
+1510021,"Wasco, City of",Central Valley
+1510022,West Kern Water District,Central Valley
+1510025,Stallion Springs Community Services District,Central Valley
+1510029,Vaughn Water Company,Central Valley
+1510031,"Bakersfield, City of",Central Valley
+1510041,North of The River Municipal Water District,Central Valley
+1510045,Golden Hills Community Services District,Central Valley
+1510049,CA Water Service Co - Kern River Vly,Central Valley
+1610003,"Hanford, City of",Central Valley
+1610005,"Lemoore, City of",Central Valley
+1810001,"Susanville, City of",Central Valley
+1910001,"Alhambra, City of",South
+1910003,"Arcadia, City of",South
+1910004,Golden State Water Company - Artesia,South
+1910007,"Azusa, City of",South
+1910011,Golden State Water Company - Bell-Bell Gardens,South
+1910013,Bellflower-Somerset Mutual Water Company,South
+1910017,Castaic Lake Water Agency Santa Clarita Water Division,South
+1910019,"Cerritos, City of",South
+1910024,Golden State Water Company - Claremont,South
+1910026,"Compton, City of",South
+1910027,Los Angeles County Water District #40,South
+1910028,Crescenta Valley Water District,South
+1910030,Golden State Water Company - Culver City,South
+1910032,Foothill Municipal Water District,South
+1910033,CA Water Service Co - Dominguez District,South
+1910034,"Downey, City of",South
+1910036,CA Water Service Co - East Los Angeles District,South
+1910038,"El Monte, City of",South
+1910041,Three Valleys Municipal Water District,South
+1910042,"Pico Rivera, City of",South
+1910043,"Glendale, City of",South
+1910044,"Glendora, City of",South
+1910047,"Hawthorne, City of",South
+1910049,"Huntington Park, City of",South
+1910052,CA-American Water - Los Angeles,South
+1910062,"La Verne, City of",South
+1910063,Lincoln Avenue Water Company,South
+1910065,Long Beach Water Department,South
+1910067,Los Angeles Department of Water and Power,South
+1910073,"Lomita, City of",South
+1910077,Golden State Water Company - Florence-Graham,South
+1910079,"Lynwood, City of",South
+1910083,"Manhattan Beach, City of",South
+1910087,Metropolitan Water District of Southern California,South
+1910090,"Monrovia, City of",South
+1910091,Montebello Land and Water Company,South
+1910096,Newhall County Water District,South
+1910098,Golden State Water Company - Norwalk,South
+1910102,Palmdale Water District,South
+1910104,CA Water Service Co - Palos Verdes,South
+1910105,"Paramount, City of",South
+1910124,"Pasadena, City of",South
+1910125,Pico Water District,South
+1910126,"Pomona, City of",South
+1910130,Quartz Hill Water District,South
+1910134,CA Water Service Co - Hermosa Redondo District,South
+1910140,Rubio Canyon Land & Water Assoc,South
+1910142,Golden State Water Company - San Dimas,South
+1910143,"San Fernando, City of",South
+1910144,San Gabriel County Water District,South
+1910146,"Santa Monica, City of",South
+1910148,"Sierra Madre, City of",South
+1910152,"South Gate, City of",South
+1910154,"South Pasadena, City of",South
+1910155,Golden State Water Company - Southwest,South
+1910156,"Beverly Hills, City of",South
+1910157,Sunny Slope Water Company,South
+1910166,Valley Water Company,South
+1910167,"Vernon, City of",South
+1910173,"Whittier, City of",South
+1910179,"Burbank, City of",South
+1910189,San Gabriel Valley Municipal Water District,South
+1910191,"Norwalk, City of",South
+1910194,Rowland Water District,South
+1910200,Suburban Water Systems - San Jose Hills,South
+1910204,Los Angeles County Water District #29,South
+1910213,"Torrance, City of",South
+1910223,Golden State Water Company - South San Gabriel,South
+1910225,Las Virgenes Water District,South
+1910234,Walnut Valley Water District,South
+1910239,"Lakewood, City of",South
+1910240,Valencia Water Company,South
+1910245,"Santa Fe Springs, City of",South
+1910253,Central Basin Municipal Water District,South
+2010002,"Madera, City of",Central Valley
+2110002,Marin Municipal Water District,North
+2110003,North Marin Water District,North
+2310003,"Ukiah, City of",North
+2410005,"Los Banos, City of",Central Valley
+2410009,"Merced, City of",Central Valley
+2610001,Mammoth Community Water District,Central Valley
+2701202,CA-American Water - Monterey District,North
+2710009,CA Water Service Co - King City,North
+2710010,CA Water Service Co - Salinas,North
+2710011,"Soledad, City of",North
+2710017,Marina Coast Water District,North
+2810003,"Napa, City of",North
+2810005,"American Canyon, City of",North
+2910003,Truckee-Donner Public Utilities District,Central Valley
+3010001,"Anaheim, City of",South
+3010002,"Brea, City of",South
+3010003,"Buena Park, City of",South
+3010004,Mesa Consolidated Water District,South
+3010010,"Fullerton, City of",South
+3010017,Laguna Beach County Water District,South
+3010018,"La Habra, City of",South
+3010022,Golden State Water Company - West Orange,South
+3010023,"Newport Beach, City of",South
+3010027,"Orange, City of",South
+3010030,"San Juan Capistrano, City of",South
+3010035,Golden State Water Company - Placentia,South
+3010036,"San Clemente, City of",South
+3010037,Yorba Linda Water District,South
+3010038,"Santa Ana, City of",South
+3010041,"Seal Beach, City of",South
+3010042,South Coast Water District,South
+3010046,"Tustin, City of",South
+3010047,Golden State Water Company - Cowan Heights,South
+3010053,"Huntington Beach, City of",South
+3010062,"Garden Grove, City of",South
+3010064,"Westminster, City of",South
+3010068,East Orange County Water District,South
+3010069,"Fountain Valley, City of",South
+3010073,Moulton Niguel Water District,South
+3010079,El Toro Water District,South
+3010082,Serrano Water District,South
+3010094,Trabuco Canyon Water District,South
+3010100,"La Palma, City of",South
+3010101,Santa Margarita Water District,South
+3110001,North Tahoe Public Utility District,Central Valley
+3110004,"Lincoln, City of",Central Valley
+3110008,"Roseville, City of",Central Valley
+3110010,Tahoe City Public Utility,Central Valley
+3110124,Placer County Water Agency,Central Valley
+3310002,Beaumont-Cherry Valley Water District,South
+3310003,"Blythe, City of",South
+3310005,Desert Water Agnecy,South
+3310007,"Coachella, City of",South
+3310008,Mission Springs Water District,South
+3310009,Eastern Municipal Water District,South
+3310012,Elsinore Valley Municipal Water District,South
+3310020,"Indio, City of",South
+3310021,Jurupa Community Services District,South
+3310022,Lake Hemet Municipal Water District,South
+3310031,"Riverside, City of",South
+3310032,"San Jacinto, City of",South
+3310038,Rancho California Water District,South
+3310044,Rubidoux Community Services District,South
+3310049,Western Municipal Water District of Riverside,South
+3410001,Sacramento Suburban Water District,Central Valley
+3410002,Sacramento County Water Agency,Central Valley
+3410004,Carmichael Water District,Central Valley
+3410006,Citrus Heights Water District,Central Valley
+3410008,Elk Grove Water District,Central Valley
+3410009,Fair Oaks Water District,Central Valley
+3410011,"Galt, City of",Central Valley
+3410014,"Folsom, City of",Central Valley
+3410015,Golden State Water Company - Cordova,Central Valley
+3410016,Orange Vale Water Company,Central Valley
+3410018,Rio Linda - Elverta Community Water District,Central Valley
+3410020,"Sacramento, City of",Central Valley
+3410021,San Juan Water District,Central Valley
+3410023,Fruitridge Vista Water Co,Central Valley
+3510001,Hollister Urban Area,North
+3510003,Sunny Slope County Water District,North
+3610001,"Adelanto, City of",South
+3610003,Apple Valley Ranchos Water Company,South
+3610004,West Valley Water District,South
+3610008,Big Bear Community Services District,South
+3610012,"Chino, City of",South
+3610013,"Loma Linda, City of",South
+3610014,"Colton, City of",South
+3610015,Crestline Village Water District,South
+3610018,Cucamonga Valley Water District,South
+3610019,San Bernardino Valley Regional Urban Water Management Alliance,South
+3610024,"Hesperia, City of Water District",South
+3610025,Joshua Basin Water District,South
+3610029,Monte Vista Water District,South
+3610034,"Ontario, City of",South
+3610036,"Chino Hills, City of",South
+3610037,"Redlands, City of",South
+3610038,"Rialto, City of",South
+3610043,Golden State Water Company - Barstow,South
+3610045,"Big Bear Lake, City of",South
+3610049,Twentynine Palms Water District,South
+3610050,"Upland, City of",South
+3610052,Victorville Water District,South
+3610055,Yucaipa Valley Water District,South
+3610057,Riverside Highland Water Company,South
+3610064,East Valley Water District,South
+3610073,Hi-Desert WD,South
+3610120,Phelan Pinon Hills Community Services District,South
+3610121,San Bernardino County Service Area 64,South
+3710001,CA-American Water - San Diego,South
+3710002,Vallecitos Water District,South
+3710005,Carlsbad Municipal Water District,South
+3710006,"Escondido, City of",South
+3710008,Fallbrook PUD,South
+3710010,Helix Water District,South
+3710013,Lakeside Water District,South
+3710014,"Oceanside, City of",South
+3710015,"Poway, City of",South
+3710016,Rainbow Municipal Water District,South
+3710019,Ramona Municipal Water District,South
+3710020,"San Diego, City of",South
+3710021,San Dieguito Water District,South
+3710023,Santa Fe Irrigation District,South
+3710025,Sweetwater Authority,South
+3710026,Valley Center Municipal Water District,South
+3710027,Vista Irrigation District,South
+3710029,"Olivenhain, City of",South
+3710034,Otay Water District,South
+3710042,San Diego County Water Authority,South
+3710044,Rincon del Diablo Municipal Water District,South
+3810011,San Francisco Public Utilities Commission,North
+3910001,CA Water Sercice Co - Stockton,Central Valley
+3910004,"Lodi, City of",Central Valley
+3910006,Stockton East Water District,Central Valley
+3910011,"Tracy, City of",North
+3910012,"Stockton, City of",Central Valley
+4010001,"Arroyo Grande, City of",North
+4010004,"Grover Beach, City of",North
+4010007,"Paso Robles, City of",North
+4010008,"Pismo Beach, City of",North
+4010009,"San Luis Obispo, City of",North
+4010011,"Morro Bay, City of",North
+4010014,Cambria Community Services District,North
+4010026,Nipomo Community Services District,North
+4110001,Mid-Peninsula Water District,North
+4110003,"Burlingame, City of",North
+4110006,CA Water Service Co - Bear Gulch,North
+4110008,CA Water Service Co - Mid Peninsula District,North
+4110009,CA Water Service Co - South San Francisco,North
+4110011,Coastside Co Water District,North
+4110013,"Daly City, City of",North
+4110016,"Hillsborough, Town of",North
+4110017,"Menlo Park, City of",North
+4110018,"Millbrae, City of",North
+4110021,Estero Municipal-Foster City,North
+4110022,"Redwood City, City of",North
+4110023,"San Bruno, City of",North
+4110024,"East Palo Alto, City of",North
+4110025,North Coast County Water District,North
+4110027,Westborough Water District,North
+4210001,Carpenteria Valley Water District,South
+4210004,Goleta Water District,South
+4210006,"Lompoc, City of",North
+4210010,"Santa Barbara, City of",South
+4210011,"Santa Maria, City of",North
+4210016,Golden State Water Company - Orcutt,North
+4310001,Ca Water Service Co - Los Altos Suburban District,North
+4310004,"Gilroy, City of",North
+4310005,"Milpitas, City of",North
+4310006,"Morgan Hill, City of",North
+4310007,"Mountain View, City of",North
+4310009,"Palo Alto, City of",North
+4310011,San Jose Water Company,North
+4310012,"Santa Clara, City of",North
+4310014,"Sunnyvale, City of",North
+4310020,"San Jose, City of",North
+4310022,Great Oaks Water Company,North
+4310027,Santa Clara Valley Water District,North
+4410010,"Santa Cruz, City of",North
+4410011,"Watsonville, City of",North
+4410013,Scotts Valley Water District,North
+4410017,Soquel Creek Water District,North
+4510005,"Redding, City of",Central Valley
+4510006,"Shasta Lake, City of",Central Valley
+4710011,"Yreka, City of",North
+4810001,"Benecia, City of",North
+4810002,CA Water Service Co - Dixon District,Central Valley
+4810003,"Fairfield, City of",North
+4810004,"Rio Vista, City of",Central Valley
+4810007,"Vallejo, City of",North
+4810008,"Vacaville, City of",North
+4910004,Sweetwater Springs Water District,North
+4910006,"Petaluma, City of",North
+4910009,"Santa Rosa, City of",North
+4910012,"Sonoma, City of",North
+4910013,Valley of the Moon Water District,North
+4910014,"Rohnert Park, City of",North
+4910017,"Windsor, town of Water District",North
+4910018,CA Water Service Co - Redwood Valley,North
+5010017,"Patterson, City of",Central Valley
+5010018,"Riverbank, City of",Central Valley
+5010019,"Turlock, City of",Central Valley
+5010028,"Ceres, City of",Central Valley
+5010033,"Modesto, City of",Central Valley
+5010038,Modesto Irrigation District,Central Valley
+5010040,South San Joaquin Irrigation District,Central Valley
+5110002,"Yuba City, City of",Central Valley
+5210004,"Red Bluff, City of",Central Valley
+5410002,"Dinuba, City of",Central Valley
+5410003,"Exeter, City of",Central Valley
+5410010,"Porterville, City of",Central Valley
+5410015,"Tulare, City of",Central Valley
+5410041,CA Water Service Co - Visalia,Central Valley
+5510003,Tuolumne Utilities District,Central Valley
+5510009,Groveland Community Services District,Central Valley
+5610007,"Oxnard, City of",South
+5610009,"Port Hueneme, City of",South
+5610011,"Santa Paula, City of",South
+5610014,Golden State Water Company - Ojai,South
+5610019,"Camarillo, City of",South
+5610023,Ventura County Waterworks District #8,South
+5610024,Casitas Municipal Water District,South
+5610040,CA-American Water - Ventura,South
+5610043,Triunfo Sanitation District,South
+5610046,United Water Conservation District,South
+5610050,Calleguas Municipal Water District,South
+5610059,Golden State Water Company - Simi Valley,South
+5610063,Camrosa Water District,South
+5610080,Port Hueneme Water Agency,South
+5710001,Davis City of,Central Valley
+5710003,"West Sacramento, City of",Central Valley
+5710006,"Woodland, City of",Central Valley
+5810001,CA Water Service Co - Marysville,Central Valley
+5810002,Linda County Water District,Central Valley
+5810003,Olivehurst Public Utilities District,Central Valley
