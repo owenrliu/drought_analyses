@@ -1,0 +1,406 @@
+---
+title: "district_stats_6.2.16"
+author: "Owen Liu"
+date: "June 2, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(ggplot2)
+
+setwd("C:/Users/oliu.MASONBEE/Documents/github/drought_analyses")
+WD <- getwd()
+
+dist.stats <- read.csv(paste0(WD,"/data/wd_dat_5_19.csv"))
+
+# remove old use columns
+dist.stats <- select(dist.stats,-(totgpcd15:changer))
+
+# change data
+changedat <- read.csv(paste0(WD,"/data/match_2010_2015/change_data_6_2_16.csv"))
+
+fulldat <- inner_join(dist.stats,changedat,by=c("pwsid"="PWSID","district"="PWS.name.2010"))
+
+
+```
+
+Dummy for nesting
+
+```{r nesting dummy}
+nesting <- function(x) ifelse(x==0 | is.na(x), 0, 1)
+fulldat <- fulldat %>% select(-X.x,-X.y)
+fulldat$nested <- sapply(fulldat$sellertier,nesting) # Nesting dummy
+
+# write full data
+write.csv(fulldat,file=paste0(WD,"/data/full_data_6_2_16.csv"))
+
+# Minus Vernon and Fruitridge Vista
+fulldat2 <- filter(fulldat,tot.use.2010.pc<1000000)
+
+```
+
+Plots
+
+```{r basic plots}
+ggplot(fulldat2) + geom_point(aes(x=tot.use.2010.gpcd,y=tot.use.2015.gpcd,size=log(mean.pop.2015)),shape=1) + geom_abline(intercept=0,slope=1,linetype=2)+xlim(0,1000)+ylim(0,1000)
+
+```
+
+```{r scatterplots}
+# for all scatterplots for now, the y-variable(dependent variable) is change in use (total), variable changetot
+# Continuous variables are severity, simpson, propground,propsurf,proprecyc,propimport,medinc,totgpcd15
+#Severity
+ggplot(data=fulldat2,aes(x=severity,y=percent.change.tot)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Drought Severity vs. Change in Total Use") +xlab("Severity(Weeks at or Above Drought Monitor Category 3)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("severity.png")
+#Simpson
+ggplot(data=fulldat2,aes(x=simpson,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Source Diversity vs. Change in Total Use") +xlab("Diversity of Sources (Simpson index)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("simpson.png")
+#propground
+ggplot(data=fulldat2,aes(x=propground,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Groundwater vs. Change in Total Use") +xlab("Proportion Groundwater") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("propground.png")
+#propsurf
+ggplot(data=fulldat2,aes(x=propsurf,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Surface Water vs. Change in Total Use") +xlab("Proportion Surface Water") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("propsurf.png")
+#proprecyc
+ggplot(data=fulldat2,aes(x=proprecyc,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Recycled Water vs. Change in Total Use") +xlab("Proportion Recycled Water") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("proprecyc.png")
+#propimport
+ggplot(data=fulldat2,aes(x=propimport,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Proportion Imported Water vs. Change in Total Use") +xlab("Proportion Surface Water") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("propimport.png")
+#medinc
+ggplot(data=fulldat2,aes(x=medinc,y=percent.change.tot)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Median Income vs. Change in Total Use") +xlab("Median Household Income (Thousands USD)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("medianincome.png")
+#rgpcd10
+ggplot(data=fulldat2,aes(x=tot.use.2010.gpcd,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Total Use 2010 vs. Change in Total Use") +xlab("Total Use (GPCD) 2010") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("Totaluse2010.png")
+```
+
+```{r boxplots}
+#Categorial/Binary variables- boxplots
+#groundwater sources
+ggplot(data=fulldat2,aes(factor(ground),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Number of Groundwater Sources vs. Change in Total Use") +xlab("Number of Groundwater Sources") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("groundwatersources.png")
+#surface water sources
+ggplot(data=fulldat2,aes(factor(surf),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Number of Groundwater Sources vs. Change in Total Use") +xlab("Number of Groundwater Sources") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("surfacewatersources.png")
+
+#number of imported sources
+ggplot(data=fulldat2,aes(factor(imported),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Number of Imported Water Sources vs. Change in Total Use") +xlab("Number of Imported Water Sources") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("importedsources.png")
+
+# Total number of sources
+ggplot(data=fulldat2,aes(factor(tot.source),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Number of Total Water Sources vs. Change in Total Use") +xlab("Number of Imported Water Sources") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("totalsources.png")
+
+
+#recyled (binary)
+ggplot(data=fulldat2,aes(factor(recycled),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Recycled Water vs. Change in Total Use") +xlab("Use of Recycled Water (No/Yes)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("recycled.png")
+
+#desalination (binary)
+ggplot(data=fulldat2,aes(factor(desal),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Desalination vs. Change in Total Use") +xlab("Use of Desalinated Water (No/Yes)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("desal.png")
+
+# Nesting attributes
+# buyer tier
+ggplot(data=na.omit(fulldat2),aes(factor(buyertier),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Buyer Tier vs. Change in Total Use") +xlab("Buyer Tier (Levels Below in the Tree)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("buyertier.png")
+
+#seller tier
+ggplot(data=na.omit(fulldat2),aes(factor(sellertier),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Seller Tier vs. Change in Total Use") +xlab("Seller Tier (Levels Above in the Tree)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("sellertier.png")
+# selltier <- aov(percent.change.tot ~ factor(sellertier),data=fulldat2[fulldat2$region2=="South",])
+# summary(selltier)
+# TukeyHSD(selltier)
+
+# regions combined
+ggplot(data=na.omit(fulldat2),aes(factor(sellertier),percent.change.tot)) + geom_boxplot() +ggtitle("Seller Tier vs. Change in Total Use") +xlab("Seller Tier (Levels Above in the Tree)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("sellertier_regions_comb.png")
+
+#direct buyers
+ggplot(data=fulldat2,aes(x=buyers,y=percent.change.tot,col=region2)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Direct Buyers vs. Change in Total Use") +xlab("Number of Direct Buyers") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("directbuyers.png")
+
+#direct sellers
+ggplot(data=na.omit(fulldat2),aes(factor(sellers),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Direct Sellers vs. Change in Total Use") +xlab("Number of Direct Sellers") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("directsellers.png")
+
+# Nested, yes/no
+ggplot(data=fulldat2,aes(factor(nested),percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Nested vs. Change in Total Use") +xlab("Nested(No/Yes)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+
+# Nested, yes/no, regions combined
+ggplot(data=fulldat2,aes(x=factor(nested),y=percent.change.tot)) + geom_boxplot() +ggtitle("Nested vs. Change in Total Use") +xlab("Nested No/Yes") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+nesting <- aov(percent.change.tot ~ factor(nested),data=fulldat2)
+summary(nesting)
+TukeyHSD(nesting)
+```
+
+
+```{r regions boxplots}
+# Use in 2010, Regions
+ggplot(data=fulldat2,aes(region2,tot.use.2010.gpcd,col=region2)) + geom_boxplot() +ggtitle("2010 Total Use by Region") +xlab("Region") +ylab("Total Use, 2010 (GPCD)")
+#ggsave("Use_2010.png")
+
+use.reg <- aov(tot.use.2010.gpcd~region2,data=fulldat2) # ANOVA for significance
+summary(use.reg) 
+TukeyHSD(use.reg) # Tukey Honest sig differences between groups
+
+# Median income, Regions
+ggplot(data=fulldat2,aes(region2,medinc,col=region2)) + geom_boxplot() +ggtitle("Median Income by Region") +xlab("Region") +ylab("Median Income (1000s USD)")
+
+#ggsave("North_South_Income.png")
+medinc.reg <- aov(medinc~region2,data=fulldat2) # ANOVA for significance
+summary(medinc.reg) 
+TukeyHSD(medinc.reg) # Tukey Honest sig differences between groups
+
+# Severity by region
+ggplot(data=fulldat2,aes(hydrologic.region,severity,col=hydrologic.region)) + geom_boxplot() +ggtitle("Drought Severity by Region") +xlab("Region") +ylab("Drought Severity (Weeks at or above Drought Monitor 3")
+#ggsave("severity_north_south.png")
+sev.reg <- aov(severity~region2,data=fulldat2) # ANOVA for significance
+summary(sev.reg) 
+TukeyHSD(sev.reg) # Tukey Honest sig differences between groups
+
+summary(lm(percent.change.tot~severity,data=fulldat2))
+
+# Change in Use,Regions
+ggplot(data=na.omit(fulldat2),aes(region2,percent.change.tot,col=region2)) + geom_boxplot() +ggtitle("Change in Use by Region") +xlab("Region") +ylab("Change in Total Use, 2010-2015 (GPCD)")
+#ggsave("Use_2010.png")
+
+percent.change.tot.reg <- aov(percent.change.tot~region2,data=fulldat2) # ANOVA for significance
+summary(percent.change.tot.reg) 
+TukeyHSD(percent.change.tot.reg) # Tukey Honest sig differences between groups
+
+# Seller Tier, Regions
+ggplot(data=fulldat2,aes(region2,sellertier,col=region2)) + geom_boxplot() +ggtitle("Seller Tier by Region") +xlab("Region") +ylab("Seller Tier by Region")
+#ggsave("Use_2010.png")
+
+selltier.reg <- aov(sellertier~region2,data=fulldat2) # ANOVA for significance
+summary(selltier.reg) 
+TukeyHSD(selltier.reg) # Tukey Honest sig differences between groups
+```
+
+
+Normal linear models
+
+```{r linear models}
+summary(lm(percent.change.tot~medinc+region2+Population.2010+sellertier,data=fulldat2))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity,data=fulldat2))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+Population.2010*region2,data=fulldat2))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+Population.2010*region2+severity*region2,data=fulldat2))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=fulldat2))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+Population.2010*region2+severity*region2+medinc*region2,data=fulldat2))
+
+# without regions
+summary(lm(percent.change.tot~medinc+Population.2010+sellertier+severity,data=fulldat2))
+summary(lm(percent.change.tot~medinc+Population.2010+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=fulldat2))
+
+summary(lm(percent.change.tot~medinc+Population.2010+simpson+severity,data=fulldat2))
+
+summary(lm(percent.change.tot~medinc,data=fulldat2))
+
+```
+
+Removing outliers
+
+```{r outliers}
+summary(fulldat2$percent.change.tot)
+sd(fulldat2$percent.change.tot)
+mean(fulldat2$percent.change.tot)+2*sd(fulldat2$percent.change.tot)
+mean(fulldat2$percent.change.tot)-2*sd(fulldat2$percent.change.tot)
+
+fulldat3 <- filter(fulldat2,percent.change.tot<33.87,percent.change.tot>-68)
+
+#linears
+summary(lm(percent.change.tot~medinc+region2+Population.2010+sellertier,data=fulldat3))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity,data=fulldat3))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+Population.2010*region2,data=fulldat3))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+Population.2010*region2+severity*region2,data=fulldat3))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=fulldat3))
+summary(lm(percent.change.tot~medinc+region2+Population.2010+severity+Population.2010*region2+severity*region2+medinc*region2,data=fulldat3))
+
+# without regions
+summary(lm(percent.change.tot~medinc+Population.2010+sellertier+severity,data=fulldat3))
+summary(lm(percent.change.tot~medinc+Population.2010+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=fulldat3))
+
+summary(lm(percent.change.tot~medinc+Population.2010+simpson+severity,data=fulldat3))
+
+summary(lm(percent.change.tot~medinc,data=fulldat3))
+
+
+ggplot(data=fulldat3,aes(x=medinc,y=percent.change.tot,col=hydrologic.region)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Median Income vs. Change in Total Use") +xlab("Median Household Income (Thousands USD)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+
+# Median income, Hydrologic Regions
+ggplot(data=fulldat3,aes(hydrologic.region,medinc,col=hydrologic.region)) + geom_boxplot() +ggtitle("Median Income by Region") +xlab("Region") +ylab("Median Income (1000s USD)")
+
+# Change in Use,Regions
+ggplot(data=na.omit(fulldat3),aes(hydrologic.region,percent.change.tot,col=hydrologic.region)) + geom_boxplot() +ggtitle("Change in Use by Region") +xlab("Region") +ylab("Change in Total Use, 2010-2015 (GPCD)")
+#ggsave("Use_2010.png")
+
+percent.change.tot.reg <- aov(percent.change.tot~region2,data=fulldat2) # ANOVA for significance
+summary(percent.change.tot.reg) 
+TukeyHSD(percent.change.tot.reg) # Tukey Honest sig differences between groups
+
+# number in each hydroregion
+
+hydrologic.region.counts <- fulldat %>% count(hydrologic.region)
+ggplot(fulldat3) + geom_point(aes(x=tot.use.2010.gpcd,y=tot.use.2015.gpcd,size=log(mean.pop.2015)),shape=1) + geom_abline(intercept=0,slope=1,linetype=2) + xlim(0,1000) +ylim(0,1000)
+```
+
+Adding conservation standard
+
+```{r conservation standard}
+comp.2015 <- read.csv(file=paste0(WD,"/data/match_2010_2015/2015_2013_state_use_fullyrs.csv"),stringsAsFactors = F)
+
+# number of months of a conservation standard
+cons.standard.months <- select(comp.2015,PWS.name,Conservation.Standard) %>% mutate(cons.st=as.numeric(Conservation.Standard)) %>% filter(!is.na(cons.st))%>% group_by(PWS.name) %>% summarise(nmonths=n())
+
+cons.standard <- select(comp.2015,PWS.name,Conservation.Standard,Total.monthly.2015.g,Total.monthly.2013.g) %>% mutate(cons.st=as.numeric(Conservation.Standard)) %>% filter(!is.na(cons.st))%>% group_by(PWS.name) %>% summarise(cons.st=max(cons.st,na.rm=T),J_D_percent.change.tot=mean((Total.monthly.2015.g-Total.monthly.2013.g)/Total.monthly.2013.g))
+
+fulldat4 <- inner_join(fulldat3,cons.standard,by=c("PWS.name.2015"="PWS.name"))
+
+summary(lm(percent.change.tot~cons.st,data=fulldat4))
+
+summary(lm(change.tot~cons.st+medinc+severity+simpson+hydrologic.region+Population.2010,data=fulldat4))
+summary(lm(percent.change.tot~cons.st+medinc+severity+simpson+hydrologic.region+Population.2010,data=fulldat4))
+summary(lm(percent.change.tot.gpcd~cons.st+medinc+severity+simpson+hydrologic.region,data=fulldat4))
+summary(lm(percent.change.tot.gpcd~cons.st+medinc+severity+simpson+hydrologic.region+severity*hydrologic.region,data=fulldat4))
+summary(lm(percent.change.tot.gpcd~cons.st+medinc+severity+simpson+hydrologic.region+nested,data=fulldat4))
+
+summary(lm(percent.change.tot.gpcd~cons.st+medinc+severity+simpson+hydrologic.region+severity*cons.st,data=fulldat4))
+
+# Conservation standard
+ggplot(data=fulldat4,aes(x=cons.st,y=percent.change.tot)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Conservation Standard vs. Change in Total Use") +xlab("Conservation Standard") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+
+#Severity, non-region
+ggplot(data=fulldat4,aes(x=severity,y=percent.change.tot.gpcd)) + geom_point() +geom_smooth(method=lm,se=FALSE) + ggtitle("Drought Severity vs. Change in Total Use") +xlab("Severity(Weeks at or Above Drought Monitor Category 3)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+#ggsave("severity.png")
+
+ggplot(data=fulldat4,aes(x=severity,y=cons.st))+geom_point()+geom_smooth(method=lm,se=FALSE) + ggtitle("Drought Severity vs. Conservation Standard") +xlab("Severity(Weeks at or Above Drought Monitor Category 3)") +ylab("Conservation Standard")+geom_hline(yintercept=0,linetype=2)
+```
+
+By 3 region
+
+```{r 3 region}
+summary(lm(change.tot~cons.st+medinc+severity+simpson+region2+Population.2010,data=fulldat4))
+summary(lm(percent.change.tot~cons.st+medinc+severity+simpson+region2+Population.2010,data=fulldat4))
+summary(lm(percent.change.tot.gpcd~cons.st+medinc+severity+simpson+region2,data=fulldat4))
+```
+
+Top and Bottom 20 in each category
+```{r rankings}
+top20.changetot <- fulldat %>% select(district, hydrologic.region,change.tot) %>% mutate(rank=dense_rank(change.tot)) %>% arrange(rank) %>% slice(1:20)
+
+bottom20.changetot <- fulldat %>% select(district, hydrologic.region,change.tot) %>% mutate(rank=dense_rank(change.tot)) %>% arrange(desc(rank)) %>% slice(1:20)
+
+top20.percent.changetot <- fulldat %>% select(district, hydrologic.region,percent.change.tot) %>% mutate(rank=dense_rank(percent.change.tot)) %>% arrange(rank) %>% slice(1:20)
+
+bottom20.percent.changetot <- fulldat %>% select(district, hydrologic.region,percent.change.tot) %>% mutate(rank=dense_rank(percent.change.tot)) %>% arrange(desc(rank)) %>% slice(1:20)
+
+top20.changetot.gpcd <- fulldat %>% select(district, hydrologic.region,change.tot.gpcd) %>% mutate(rank=dense_rank(change.tot.gpcd)) %>% arrange(rank) %>% slice(1:20)
+
+bottom20.changetot.gpcd <- fulldat %>% select(district, hydrologic.region,change.tot.gpcd) %>% mutate(rank=dense_rank(change.tot.gpcd)) %>% arrange(desc(rank)) %>% slice(1:20)
+
+top20.percent.changetot.gpcd <- fulldat %>% select(district, hydrologic.region,percent.change.tot.gpcd) %>% mutate(rank=dense_rank(percent.change.tot.gpcd)) %>% arrange(rank) %>% slice(1:20)
+
+bottom20.percent.changetot.gpcd <- fulldat %>% select(district, hydrologic.region,percent.change.tot.gpcd) %>% mutate(rank=dense_rank(percent.change.tot.gpcd)) %>% arrange(desc(rank)) %>% slice(1:20)
+```
+
+Quick PCA (See how it looks!)
+
+```{r pca water districts}
+library(vegan)
+# appropriate variables
+pca.data <- fulldat4 %>% select(severity,simpson,propground:propimport,-propbank,medinc,sellertier,Population.2010,change.tot,cons.st) %>% filter(!is.na(sellertier))
+
+# run the pca
+wd.pca <- rda(pca.data,scale=TRUE)
+summary(wd.pca)
+
+plot(wd.pca,scaling=2,choices=c(1,2))
+plot(wd.pca,scaling=2,choices=c(2,3))
+
+plot(wd.pca,scaling=2,choices=c(1,2),display="species")
+plot(wd.pca,scaling=2,choices=c(2,3),display="species")
+
+```
+
+Use 2015 regressed on use 2010
+```{r 2015 use regression}
+# total 2015 ~ total 2010 + population 2010
+summary(lm(tot.use.2015 ~ tot.use.2010 + Population.2010 + medinc + severity + simpson + hydrologic.region+medinc*severity, data=fulldat4))
+
+# per capita 2015~ per capita 2010
+summary(lm(tot.use.2015.gpcd ~ tot.use.2010.gpcd + medinc + severity + simpson + hydrologic.region+medinc*severity, data=fulldat4))
+summary(lm(tot.use.2015.pc ~ tot.use.2010.pc + medinc + severity + simpson + hydrologic.region+medinc*severity, data=fulldat4))
+
+# adding 2010 as a RHS var
+summary(lm(percent.change.tot.gpcd~cons.st+tot.use.2010+medinc+severity+simpson+hydrologic.region+nested,data=fulldat4))
+
+summary(lm(percent.change.tot.gpcd~cons.st+tot.use.2010+medinc+severity+simpson+hydrologic.region+nested+medinc*hydrologic.region,data=fulldat4))
+
+summary(lm(percent.change.tot~cons.st+tot.use.2010+medinc+severity+simpson+hydrologic.region+nested+medinc*hydrologic.region,data=fulldat4))
+
+summary(lm(percent.change.tot.gpcd~cons.st+tot.use.2010.gpcd+medinc+severity+simpson+hydrologic.region+nested+medinc*hydrologic.region,data=fulldat4))
+
+ggplot(data=fulldat4,aes(x=severity,y=percent.change.tot.gpcd,col=hydrologic.region,shape=hydrologic.region)) + geom_point() +geom_smooth(se=FALSE) + ggtitle("Drought Severity vs. Change in Total Use") +xlab("Severity(Weeks at or Above Drought Monitor Category 3)") +ylab("% Change in Total Use (GPCD)")+geom_hline(yintercept=0,linetype=2)
+
+summary(lm(percent.change.tot.gpcd~cons.st+tot.use.2010+medinc+severity+simpson+nested,data=fulldat4))
+
+```
+
+2013 change data
+
+```{r 2013 calcs}
+change2013 <- fulldat4 %>% 
+  select(pwsid,tot.use.2015,tot.use.2013,cons.st,J_D_percent.change.tot) %>% 
+  mutate(cons.st=(-1*(cons.st))) %>%
+  mutate(cons.st.diff=cons.st-J_D_percent.change.tot)
+
+change2013 <- change2013 %>% mutate(cons.st.dummy=ifelse(cons.st.diff>0,1,0))
+
+# merge back to all the other data
+fulldat5 <- inner_join(select(fulldat4,-cons.st),select(change2013,pwsid,cons.st,J_D_percent.change.tot,cons.st.diff,cons.st.dummy))
+
+## probability of meeting your standard
+summary(glm(cons.st.dummy~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=fulldat5,family="binomial"))
+
+## absolute standard-meeting from 2013
+summary(lm(cons.st.diff~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=fulldat5))
+
+## with 2013 data
+summary(lm(J_D_percent.change.tot~cons.st+tot.use.2013+medinc+severity+simpson+hydrologic.region+nested,data=fulldat5))
+```
+
+Removed some duplicates and extraneous variables
+
+```{r full clean data}
+
+fulldat6<-distinct(fulldat5,pwsid) %>% select(-propbank,-casgem,-adj,-contains("res"),-contains(".pc"),-other)
+
+write.csv(fulldat6,file=paste0(WD,"/data/full_dat_06092016.csv"))
+
+###
+ggplot(fulldat6,aes(x=(-1)*cons.st,y=(-1)*J_D_percent.change.tot)) +geom_point()+geom_abline(intercept=0,slope=1,linetype=2)+geom_smooth(method="lm")
+
+ggplot(fulldat6,aes(x=cons.st,y=percent.change.tot/100)) +geom_point()+geom_abline(intercept=0,slope=1,linetype=2)+geom_smooth(method="lm")
+
+ggplot(fulldat6,aes(x=cons.st,y=percent.change.tot.gpcd/100)) +geom_point()+geom_abline(intercept=0,slope=1,linetype=2)+geom_smooth(method="lm")
+
+```
+
+LMs
+
+```{r LMs}
+## probability of meeting your standard
+summary(glm(cons.st.dummy~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=fulldat6,family="binomial"))
+
+summary(glm(cons.st.dummy~cons.st+medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=fulldat6,family="binomial"))
+
+## absolute standard-meeting from 2013
+summary(lm(cons.st.diff~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=fulldat6))
+
+## with 2013 data
+summary(lm(J_D_percent.change.tot~cons.st+tot.use.2013+medinc+severity+simpson+hydrologic.region+nested,data=fulldat6))
+
+```

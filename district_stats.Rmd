@@ -7,7 +7,6 @@ output: html_document
 
 ```{r packages and useful functions, echo=FALSE}
 library(gclus)
-library(plyr)
 library(dplyr)
 #### panelutils.R ####
 #
@@ -85,18 +84,57 @@ wd.dat.3reg <- read.csv(file=paste(W_D,'/data/wd_final_28Apr2016.csv',sep=""))
 wd.dat.3reg<-wd.dat.3reg[,-1]
 names(wd.dat.3reg) <- c('pwsid','district','severity','simpson','ground','surf','imported','recycled','desal','tot.source','propground','propsurf','propdesal','proprecyc','propbank','propimport','casgem','adj','totgpcd15','rgpcd15','totgpcd10','rgpcd10','changetot','changer','medinc','buyertier','sellertier','buyers','sellers','region')
 wd.dat.3reg$medinc<-wd.dat.3reg$medinc/1000
-
-# remove rows with zero in the change in use data
-
-wd.dat.3reg <- subset(wd.dat.3reg,wd.dat.3reg$changer!=0)
+wd.dat.3reg$district <- as.character(wd.dat.3reg$district)
+sapply(names(wd.dat.3reg),function(x)class(wd.dat.3reg[,x])) # are all variables correctly classified?
 
 # 3 region districts (UPDATED 5.18.16)
 three.reg <- read.csv(file=paste(W_D,'/data/wd_3_reg.csv',sep=""))
-three.reg <- three.reg[-2]
+three.reg <- three.reg[-2] # remove name column
 names(three.reg) <- c('pwsid','region2')
 wd.dat.3reg<- left_join(wd.dat.3reg,three.reg,by=c("pwsid"))
 
-#write.csv(wd.dat.3reg,file=paste(W_D,'/data/wd_dat_5_12.csv',sep=""))
+# Jose's district use stats, updated 5.24.16 (per capita, total, and population)
+rgpcd <- read.csv(file=paste0(W_D,'/data/changeData_PWSID_gpcd.csv'),stringsAsFactors = F)
+names(rgpcd) <- c('pwsid',"district","totgpcd10","rgpcd10","totgpcd15","rgpcd15","changetot.gpcd","changer.gpcd")
+rgpcd.miss<- apply(rgpcd,2,function(x)sum(is.na(x))) # How many NAs for each variable?
+rgpcd.miss.names <-data.frame(pwsid=rgpcd$pwsid[is.na(rgpcd$changer.gpcd)],name=rgpcd$district[is.na(rgpcd$changer.gpcd)]) # which are missing change data?
+
+totg <- read.csv(file=paste0(W_D,'/data/changeData_PWSID_tot.csv'),stringsAsFactors = F)
+names(totg) <- c('pwsid',"district","tot10.g","r10.g","tot15.g","r15.g","changetot.g","changer.g","changetot.g.pcnt","changer.g.pcnt")
+totg.miss<-apply(totg,2,function(x)sum(is.na(x))) # How many NAs for each variable?
+totg.miss.names<-data.frame(pwsid=totg$pwsid[is.na(totg$changer.g)],name=totg$district[is.na(totg$changer.g)]) # which are missing change data?
+
+wdpop <- read.csv(file=paste0(W_D,'/data/changeData_PWSID_pop.csv'),stringsAsFactors = F)
+names(wdpop) <- c("pwsid","district","pop10","pop15")
+wd.pop.miss<-apply(wdpop,2,function(x)sum(is.na(x))) # How many NAs for each variable?
+wdpop.miss.names.10<-data.frame(pwsid=wdpop$pwsid[is.na(wdpop$pop10)],name=wdpop$district[is.na(wdpop$pop10)]) # which are missing pop data 2010?
+wdpop.miss.names.15<-data.frame(pwsid=wdpop$pwsid[is.na(wdpop$pop15)],name=wdpop$district[is.na(wdpop$pop15)]) # which are missing pop data 2015?
+
+## Jose's missing data, together
+missing <- full_join(rgpcd.miss.names,totg.miss.names,by="pwsid") %>% full_join(wdpop.miss.names.10,by="pwsid") %>% full_join(wdpop.miss.names.15,by="pwsid")
+names(missing) <- c("pwsid","changer.gpcd","changer.g","pop10","pop15")
+write.csv(missing,file=paste0(W_D,"/data/missing_change_data_5.25.16.csv"))
+
+## PWSID and District Name mismatches between current "master" and Jose's data
+jose.not.master.pwsid <- data.frame(jnmid=setdiff(rgpcd$pwsid,wd.dat.3reg$pwsid))
+write.csv(jose.not.master.pwsid,file=paste0(W_D,"/data/mismatches1.csv"))
+jose.not.master.district <- data.frame(jnmd=setdiff(rgpcd$district,wd.dat.3reg$district))
+write.csv(jose.not.master.district,file=paste0(W_D,"/data/mismatches2.csv"))
+master.not.jose.pwsid <- data.frame(mnjid=setdiff(wd.dat.3reg$pwsid,rgpcd$pwsid))
+write.csv(master.not.jose.pwsid,file=paste0(W_D,"/data/mismatches3.csv"))
+master.not.jose.district <- data.frame(mnjd=setdiff(wd.dat.3reg$district,rgpcd$district))
+write.csv(master.not.jose.district,file=paste0(W_D,"/data/mismatches4.csv"))
+
+
+# remove old change data and add Jose's new data (5.24.16)
+exc <- c("totgpcd15","rgpcd15","totgpcd10","rgpcd10","changetot","changer")
+wd.dat.3reg<- select(wd.dat.3reg,-one_of(exc)) %>% inner_join(rgpcd,by=c("pwsid","district")) %>% inner_join(totg,by=c("pwsid","district")) %>% inner_join(wdpop,by=c("pwsid","district"))
+
+# remove rows with zero in the change in use data
+
+wd.dat.3reg <- dplyr::filter(wd.dat.3reg,!is.na(changer.gpcd),!is.na(changer.g),!is.na(pop10),!is.na(pop15))
+
+#write.csv(wd.dat.3reg,file=paste(W_D,'/data/wd_dat_5_19.csv',sep=""))
 ```
 
 Quick looks at the variables and their relationships
@@ -252,12 +290,22 @@ sev.reg <- aov(severity~region2,data=wd.dat.3reg) # ANOVA for significance
 summary(sev.reg) 
 TukeyHSD(sev.reg) # Tukey Honest sig differences between groups
 
+summary(lm(changer~severity,data=wd.dat.3reg))
+
 # Change in Use,Regions
 ggplot(data=na.omit(wd.dat.3reg),aes(region2,changer,col=region2)) + geom_boxplot() +ggtitle("Change in Use by Region") +xlab("Region") +ylab("Change in Residential Use, 2010-2015 (GPCD)")
 #ggsave("Use_2010.png")
 changer.reg <- aov(changer~region2,data=wd.dat.3reg) # ANOVA for significance
 summary(changer.reg) 
 TukeyHSD(changer.reg) # Tukey Honest sig differences between groups
+
+# Seller Tier, Regions
+ggplot(data=na.omit(wd.dat.3reg),aes(region2,sellertier,col=region2)) + geom_boxplot() +ggtitle("Seller Tier by Region") +xlab("Region") +ylab("Seller Tier by Region")
+#ggsave("Use_2010.png")
+selltier.reg <- aov(sellertier~region2,data=wd.dat.3reg) # ANOVA for significance
+summary(selltier.reg) 
+TukeyHSD(selltier.reg) # Tukey Honest sig differences between groups
+
 ```
 
 By adjudication status (groundwater, and change in use)
@@ -277,3 +325,5 @@ summary(lm(changer~medinc+rgpcd10+sellertier+severity,data=wd.dat.3reg))
 summary(lm(changer~medinc+rgpcd10+severity+simpson+propdesal+propground+propimport+proprecyc+propsurf,data=wd.dat.3reg))
 
 ```
+
+

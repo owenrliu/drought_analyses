@@ -1,0 +1,32 @@
+---
+title: "district_stats_final"
+author: "Owen Liu"
+date: "June 23, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE,tidy=T}
+library(dplyr)
+library(ggplot2)
+
+setwd("C:/Users/oliu.MASONBEE/Documents/github/drought_analyses")
+WD <- getwd()
+
+dat <- read.csv(file=paste0(WD,"/data/full_dat_06092016.csv"))
+```
+
+
+LMs
+
+```{r LMs,tidy=T}
+## probability of meeting your standard
+summary(glm(cons.st.dummy~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat,family="binomial"))
+
+summary(glm(cons.st.dummy~cons.st+medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat,family="binomial"))
+
+## absolute standard-meeting from 2013
+summary(lm(cons.st.diff~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat))
+
+## with 2013 data
+summary(lm(J_D_percent.change.tot~cons.st+tot.use.2013+medinc+severity+simpson+hydrologic.region+nested,data=dat))
+```
