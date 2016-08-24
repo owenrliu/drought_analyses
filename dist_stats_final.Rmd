@@ -8,25 +8,225 @@ output: html_document
 ```{r setup, include=FALSE,tidy=T}
 library(dplyr)
 library(ggplot2)
+library(knitr)
 
 setwd("C:/Users/oliu.MASONBEE/Documents/github/drought_analyses")
 WD <- getwd()
 
-dat <- read.csv(file=paste0(WD,"/data/full_dat_06092016.csv"))
+dat <- read.csv(file=paste0(WD,"/data/full_dat_06092016.csv")) %>% select(-X)
+
+## UPDATE 8.23.2016: NEW SEVERITY DATA
+sev.new <- read.csv(paste0(WD,"/data/water_district_severity.csv"))
+dat <- dat %>% left_join(sev.new,by=c("pwsid"="pwsid","district"="pwsname")) %>%
+  select(-severity.x) %>%
+  rename(severity=severity.y)
+
 ```
 
+HR counts
+```{r hydro region counts}
+hydrologic.region.counts <- dat %>% count(hydrologic.region)
+kable(hydrologic.region.counts)
+```
 
 LMs
 
 ```{r LMs,tidy=T}
 ## probability of meeting your standard
-summary(glm(cons.st.dummy~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat,family="binomial"))
+fit1 <- glm(cons.st.dummy~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat,family="binomial")
 
 summary(glm(cons.st.dummy~cons.st+medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat,family="binomial"))
 
 ## absolute standard-meeting from 2013
 summary(lm(cons.st.diff~medinc+severity+simpson+nested+mean.pop.2015+hydrologic.region,data=dat))
+# include hump-shaped severity (quadratic term)
+summary(lm(cons.st.diff~medinc+severity+I(severity^2)+simpson+nested+mean.pop.2015+hydrologic.region,data=dat))
+
+summary(lm(cons.st.diff~medinc++proprecyc+propground+severity+I(severity^2)+simpson+nested+mean.pop.2015+hydrologic.region,data=dat))
 
 ## with 2013 data
 summary(lm(J_D_percent.change.tot~cons.st+tot.use.2013+medinc+severity+simpson+hydrologic.region+nested,data=dat))
+```
+
+Interesting relationships
+
+```{r scatter}
+#severity by region
+ggplot(dat, aes(x=hydrologic.region,y=severity,fill=hydrologic.region))+geom_boxplot()
+
+#severity and conservation standard
+ggplot(dat,aes(x=severity,y=cons.st)) +
+  geom_point() +
+  ggtitle("Drought Severity vs. Conservation Standard") +
+  xlab("Drought Severity Score")+
+  ylab("Conservation Standard")
+  
+ggsave("severity_and_diff_quad.png")
+
+#severity and previous use
+ggplot(dat, aes(x=severity,y=cons.st.diff,col=cons.st)) +
+  geom_point() + scale_color_distiller(palette="Spectral")+
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2),se=T)
+
+
+##
+ggplot(dat,aes(x=severity,y=cons.st.diff)) +
+  geom_point() + 
+  geom_smooth(method = "lm", formula = y ~ x + I(x^2),se=T) +
+  ggtitle("Drought Severity vs. Relative Change in Water Use") +
+  xlab("Drought Severity")+
+  ylab(expression(paste(Delta,"Water Use (Relative to Conservation Standard)"))) +
+  guides(color="none")
+ggsave("severity_and_diff_lm.png")
+
+#income
+ggplot(dat,aes(x=medinc,y=cons.st.diff)) +
+  geom_point(aes(color=hydrologic.region)) + 
+  geom_smooth(se=F,method="lm")+
+  ggtitle("Median Income vs. Relative Change in Water Use") +
+  xlab("Median Income (thousands USD)")+
+  ylab(expression(paste(Delta,"Water Use (Relative to Conservation Standard)"))) +
+  guides(color="none")
+ggsave("income_and_diff.png")
+
+# simpson
+ggplot(dat,aes(x=simpson,y=cons.st.diff)) +
+  geom_point(aes(color=hydrologic.region)) + 
+  geom_smooth(se=F,method="lm")+
+  ggtitle("Source Diversity vs. Relative Change in Water Use") +
+  xlab("Source Diversity")+
+  ylab(expression(paste(Delta,"Water Use (Relative to Conservation Standard)"))) +
+  guides(color="none")
+ggsave("simpson_and_diff.png")
+
+# nested
+ggplot(dat,aes(x=nested,y=cons.st.diff,group=nested)) +geom_boxplot(aes(color=factor(nested)))
+ggsave("nested_and_diff.png")
+
+# just cons standard
+cons.st.rank <- dat %>% group_by(hydrologic.region) %>% 
+  summarise(meansave=mean(cons.st.diff))
+cons.st.rank <- left_join(dat,cons.st.rank)
+cons.st.rank$hydrologic.region <- factor(cons.st.rank$hydrologic.region,levels=cons.st.rank$hydrologic.region[order(cons.st.rank$meansave)])
+
+ggplot(cons.st.rank,aes(x=hydrologic.region,y=cons.st.diff)) +
+  geom_boxplot(aes(fill=hydrologic.region)) + 
+  geom_hline(yintercept=0,linetype=2) + 
+  guides(fill="none") +
+  ggtitle("Percent Change in Total Water Use Relative to Standard, by Hydrologic Region") +
+  xlab("Hydrologic Region") +
+  ylab("Percent Change in Use (Actual - Standard)")
+
+ggplot(dat, aes(x=cons.st.diff,y=..density..)) +geom_histogram(binwidth=.05) +
+  ggtitle("Percent Change in Total Water Use Relative to Standard") +
+  xlab("Percent Change in Use (Actual - Standard)") +
+  ylab("Number of Regions")
+
+```
+
+Standard vs. achieved conservation
+
+```{r scatterplot cons.st J_Dperc.change}
+
+# Cons standard vs. Actual reduction
+stvsactual <- ggplot(data=dat) +
+  geom_point(aes(x=(-100*cons.st),y=(-100*J_D_percent.change.tot))) +
+  geom_smooth(aes(x=(-100*cons.st),y=(-100*J_D_percent.change.tot),lty="best fit",col="best fit"),method="lm",se=F)+
+  geom_abline(aes(lty="1:1",slope=1,intercept=0,col="1:1"),show.legend = F)+
+  geom_hline(aes(yintercept=24.8,lty="mean reduction",col="mean reduction"),size=1.3,show.legend=F)+
+  
+  scale_linetype_manual(name=NULL, labels=c("1:1","best fit","mean reduction"),values=c("1:1"=2,"best fit"=1,"mean reduction"=2))+
+  scale_colour_manual(name=NULL, labels=c("1:1","best fit","mean reduction"),values=c("black","darkred","darkgreen"))+
+  
+  xlab("Conservation Standard (%)") + ylab("Average Monthly Use Reduction (%)") + ggtitle("Conservation Standard vs. Actual Use Reduction") +
+  
+  coord_fixed(ratio=1)+
+  
+  theme_minimal()+
+  
+  theme(legend.key = element_blank(),legend.justification=c(0,1), legend.position=c(0,1))
+
+stvsactual
+
+ggsave("standard_vs_actual.png")
+
+## As a boxplot
+ggplot(dat, aes(x=factor(-100*cons.st),y=100*cons.st.diff,fill=factor(cons.st))) + 
+  geom_boxplot() + 
+  geom_hline(linetype=2,yintercept=0) +
+  labs(title="Water Conservation Relative to Standard",x="Conservation Standard (Required % Reduction)",y="Difference Between Actual and Required Reduction (%)") +
+  guides(fill="none")
+ggsave("diff_vs_consst_boxplot.png")
+```
+
+Build an AIC table
+
+```{r LMs with AIC}
+## probability of meeting your standard
+logit1 <- glm(cons.st.dummy~medinc+severity+simpson,data=dat,family="binomial")
+logit2 <- glm(cons.st.dummy~medinc+severity+simpson+hydrologic.region,data=dat,family="binomial")
+logit3 <- glm(cons.st.dummy~medinc+severity+simpson+nested+hydrologic.region,data=dat,family="binomial")
+logit4 <- glm(cons.st.dummy~medinc+severity+I(severity^2)+simpson+nested+hydrologic.region,data=dat,family="binomial")
+logit5 <- glm(cons.st.dummy~medinc+severity+I(severity^2)+simpson+nested+mean.pop.2015+hydrologic.region,data=dat,family="binomial")
+
+
+logitmodels <- list(logit1,logit2,logit3,logit4,logit5)
+
+# AIC table, logit models
+logit.AICs <- sapply(logitmodels,AIC)
+logit.delta.AICs <- logit.AICs-min(logit.AICs)
+logit.AICs.weights <- exp(-logit.delta.AICs/2)/sum(exp(-logit.delta.AICs/2))
+
+AIC_logit <- data_frame(Model=1:5,params=c("income,severity,source diversity","income,severity,source diversity,region","income,severity,source diversity,region, nested","income,severity,source diversity,region,nested,severity^2","income,severity,source diversity,region,nested, population,severity^2"),k=c(4,5,6,7,8),deltaAIC=logit.delta.AICs,weights=logit.AICs.weights)
+
+write.csv(AIC_logit,file=paste0(WD,"/data/logit_AIC_table.csv"))
+
+
+## Best model odds ratios with robust SEs (HC1, Stata's default)
+library(aod)
+require("sandwich")
+require("lmtest")
+logit5$newse<-vcovHC(logit5, type="HC1")
+coeftest(logit5,logit5$newse) #summary
+logit5.robSE <- sqrt(diag(logit5$newse))
+logit5.upper <- coef(logit5)+(1.96*logit5.robSE)
+logit5.lower <- coef(logit5)-(1.96*logit5.robSE)
+logit5.t <- coeftest(logit5,logit5$newse)[,3]
+logit5.p <- coeftest(logit5,logit5$newse)[,4]
+
+best.logit.odds <- cbind(param = names(coef(logit5)),coef=exp(coef(logit5)),lower=exp(logit5.lower),upper=exp(logit5.upper),robustSE = logit5.robSE,t=logit5.t,"Pr(>|z|)"=logit5.p)
+
+write.csv(best.logit.odds,file=paste0(WD,"/data/best_logit_odds.csv"))
+
+## absolute standard-meeting from 2013
+lm1 <- lm(cons.st.diff*100~medinc+severity+simpson,data=dat)
+lm2 <- lm(cons.st.diff*100~medinc+severity+simpson+hydrologic.region,data=dat)
+lm3 <- lm(cons.st.diff*100~medinc+severity+simpson+nested+hydrologic.region,data=dat)
+lm4 <- lm(cons.st.diff*100~medinc+severity+I(severity^2)+simpson+nested+hydrologic.region,data=dat)
+lm5 <- lm(cons.st.diff*100~medinc+severity+I(severity^2)+simpson+nested+mean.pop.2015+hydrologic.region,data=dat)
+
+lmmodels <- list(lm1,lm2,lm3,lm4,lm5)
+
+# AIC table, lm models
+lm.AICs <- sapply(lmmodels,AIC)
+lm.delta.AICs <- lm.AICs-min(lm.AICs)
+lm.AICs.weights <- exp(-lm.delta.AICs/2)/sum(exp(-lm.delta.AICs/2))
+
+AIC_lm <- data_frame(Model=1:5,params=c("income,severity,source diversity","income,severity,source diversity,region","income,severity,source diversity,region, nested","income,severity,source diversity,region,nested,severity^2","income,severity,source diversity,region,nested, population,severity^2"),k=c(4,5,6,7,8),deltaAIC=lm.delta.AICs,weights=lm.AICs.weights)
+
+write.csv(AIC_lm,file=paste0(WD,"/data/lm_AIC_table.csv"))
+
+## Best linear model coefficients with robust SEs
+# calc robust SEs
+lm4$newse<-vcovHC(lm4, type="HC1")
+coeftest(lm4,lm4$newse) #summary
+lm4.robSE <- sqrt(diag(lm4$newse))
+lm4.upper <- coef(lm4)+(1.96*lm4.robSE)
+lm4.lower <- coef(lm4)-(1.96*lm4.robSE)
+lm4.t <- coeftest(lm4,lm4$newse)[,3]
+lm4.p <- coeftest(lm4,lm4$newse)[,4]
+
+best.lm.coefs <- cbind(param = names(coef(lm4)),coef=coef(lm4),lower=lm4.lower,upper=lm4.upper,robustSE = lm4.robSE,t=lm4.t,"Pr(>|t|)"=lm4.p)
+write.csv(best.lm.coefs,file=paste0(WD,"/data/best_lm_coef.csv"))
+
 ```

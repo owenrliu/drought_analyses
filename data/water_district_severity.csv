@@ -1,0 +1,388 @@
+"pwsname","pwsid","severity"
+"Alameda County Water District",110001,146.8828
+"CA Water Service Co - Livermore",110003,151.6393
+"East Bay Municipal Utility District",110005,127.1306
+"Hayward, City of",110006,151.6393
+"Pleasanton, City of",110008,151.6393
+"Dublin San Ramon Service District",110009,151.6393
+"Alameda County Flood Control District- Zone 7",110010,155.730133333333
+"Livermore, City of",110011,151.6393
+"CA Water Service Co - Chico Hamilton City District",410002,150.53705
+"CA Water Service Co - Oroville",410005,173.927
+"South Feather Water & Power",410006,170.746633333333
+"Paradise Irrigation District",410007,164.31655
+"Antioch, City of",710001,151.134
+"Golden State Water Company - Bay Point",710002,128.8432
+"Contra Costa Water District",710003,151.302433333333
+"Brentwood,City of",710004,173.4248
+"Martinez, City of",710006,128.8432
+"Diablo Water District",710007,173.4248
+"Pittsburg, City of",710008,151.134
+"Crescent City, City of",810001,-70.5386
+"El Dorado Irrigation District",910001,168.649566666667
+"South Tahoe Public Utility District",910002,177.0057
+"Georgetown Divide Public Utility District",910013,161.3959
+"Bakman Water Company",1010001,203.0267
+"Clovis, City of",1010003,203.0267
+"Fresno, City of",1010007,202.7658
+"Kerman, City of",1010018,203.0267
+"Park Water Company",1010021,202.7658
+"CA Water Service Co - Selma",1010024,203.0267
+"Reedley, City of",1010027,203.0267
+"CA Water Service Co - Willows",1110003,145.5749
+"Eureka, City of",1210004,65.8138
+"Fortuna, City of",1210006,80.7155
+"Humboldt Community Services District",1210009,65.8138
+"Humboldt Bay Municipal WD",1210013,65.8138
+"McKinleyville Community Services District",1210016,65.8138
+"Arcata, City of",1210021,65.8138
+"Brawley, City of",1310001,-12.0242
+"Calexico, City of",1310002,-12.0242
+"El Centro, City of",1310004,-12.0242
+"Imperial, City of",1310006,-12.0242
+"CA Water Service Co - Antelope Valley",1500333,134.644
+"Arvin Community Services District",1510001,203.0267
+"CA Water Service Co - Bakersfield",1510003,203.0267
+"Delano, City of",1510005,203.0267
+"East Niles Community Services District",1510006,203.0267
+"Lamont Public Utility District",1510012,203.0267
+"Oildale Mutual Water Company",1510015,203.0267
+"Indian Wells Valley Water District",1510017,49.1629
+"Rosamond Community Services District",1510018,134.644
+"Shafter, City of",1510019,203.0267
+"Tehachapi Regional Alliance",1510020,167.4877
+"Wasco, City of",1510021,203.0267
+"West Kern Water District",1510022,202.218233333333
+"Stallion Springs Community Services District",1510025,200.3314
+"Vaughn Water Company",1510029,203.0267
+"Bakersfield, City of",1510031,203.0267
+"North of The River Municipal Water District",1510041,203.0267
+"Golden Hills Community Services District",1510045,200.3314
+"CA Water Service Co - Kern River Vly",1510049,200.3314
+"Antelope Valley_East Kern Water Agency",1510053,123.35078
+"Hanford, City of",1610003,203.0267
+"Lemoore, City of",1610005,203.0267
+"Susanville, City of",1810001,180.3326
+"Alhambra, City of",1910001,181.9725
+"Arcadia, City of",1910003,180.9289
+"Golden State Water Company - Artesia",1910004,179.8853
+"Azusa, City of",1910007,179.8853
+"Valley County Water District",1910009,179.8853
+"Golden State Water Company - Bell-Bell Gardens",1910011,181.9725
+"Bellflower-Somerset Mutual Water Company",1910013,179.8853
+"Castaic Lake Water Agency Santa Clarita Water Division",1910017,186.7674
+"Cerritos, City of",1910019,179.8853
+"Golden State Water Company - Claremont",1910024,140.06585
+"Compton, City of",1910026,181.9725
+"Los Angeles County Water District #40",1910027,84.62435
+"Crescenta Valley Water District",1910028,181.9725
+"Golden State Water Company - Culver City",1910030,182
+"Foothill Municipal Water District",1910032,181.9725
+"CA Water Service Co - Dominguez District",1910033,181.98625
+"Downey, City of",1910034,180.9289
+"CA Water Service Co - East Los Angeles District",1910036,181.9725
+"El Monte, City of",1910038,181.9725
+"Three Valleys Municipal Water District",1910041,140.06585
+"Pico Rivera, City of",1910042,180.9289
+"Glendale, City of",1910043,181.9725
+"Glendora, City of",1910044,179.8853
+"Hawthorne, City of",1910047,182
+"Castaic Lake Water Agency",1910048,184.3837
+"Huntington Park, City of",1910049,181.9725
+"Inglewood, City of",1910051,182
+"CA-American Water - Los Angeles",1910052,182
+"Suburban Water Systems Whittier-La Mirada",1910059,179.8853
+"La Verne, City of",1910062,179.8853
+"Lincoln Avenue Water Company",1910063,181.9725
+"Long Beach Water Department",1910065,181.285933333333
+"Los Angeles Department of Water and Power",1910067,183.184975
+"Lomita, City of",1910073,182
+"Golden State Water Company - Florence-Graham",1910077,181.9725
+"Lynwood, City of",1910079,181.9725
+"Manhattan Beach, City of",1910083,182
+"Metropolitan Water District of Southern California",1910087,129.543425
+"Monrovia, City of",1910090,180.9289
+"Montebello Land and Water Company",1910091,181.9725
+"Newhall County Water District",1910096,186.7674
+"Golden State Water Company - Norwalk",1910098,179.8853
+"Orchard Dale Water District",1910101,179.8853
+"Palmdale Water District",1910102,134.644
+"CA Water Service Co - Palos Verdes",1910104,182
+"Paramount, City of",1910105,180.9289
+"Pasadena, City of",1910124,181.9725
+"Pico Water District",1910125,180.9289
+"Pomona, City of",1910126,140.06585
+"Quartz Hill Water District",1910130,134.644
+"CA Water Service Co - Hermosa Redondo District",1910134,182
+"Rubio Canyon Land & Water Assoc",1910140,181.9725
+"Golden State Water Company - San Dimas",1910142,179.8853
+"San Fernando, City of",1910143,181.9725
+"San Gabriel County Water District",1910144,181.9725
+"Santa Monica, City of",1910146,182
+"Sierra Madre, City of",1910148,181.9725
+"South Gate, City of",1910152,181.9725
+"South Pasadena, City of",1910154,181.9725
+"Golden State Water Company - Southwest",1910155,181.98625
+"Beverly Hills, City of",1910156,182
+"Sunny Slope Water Company",1910157,181.38785
+"Valley Water Company",1910166,181.9725
+"Vernon, City of",1910167,181.9725
+"Whittier, City of",1910173,179.8853
+"Burbank, City of",1910179,181.9725
+"San Gabriel Valley Municipal Water District",1910189,181.9725
+"Norwalk, City of",1910191,179.8853
+"Rowland Water District",1910194,179.8853
+"Suburban Water Systems - San Jose Hills",1910200,179.8853
+"Los Angeles County Water District #29",1910204,181.98625
+"Golden State Water Company - South Arcadia",1910212,180.9289
+"Torrance, City of",1910213,182
+"Golden State Water Company - South San Gabriel",1910223,181.9725
+"Las Virgenes Water District",1910225,181.990833333333
+"Walnut Valley Water District",1910234,179.8853
+"Lakewood, City of",1910239,179.8853
+"Valencia Water Company",1910240,186.7674
+"Santa Fe Springs, City of",1910245,180.9289
+"Central Basin Municipal Water District",1910253,181.285933333333
+"Madera, City of",2010002,202.5049
+"Marin Municipal Water District",2110002,75.04815
+"North Marin Water District",2110003,73.6010000000001
+"Ukiah, City of",2310003,73.3049
+"Los Banos, City of",2410005,202.5049
+"Merced, City of",2410009,202.5049
+"Mammoth Community Water District",2610001,150.3453
+"CA-American Water - Monterey District",2701202,191.3206
+"CA Water Service Co - King City",2710009,191.3206
+"CA Water Service Co - Salinas",2710010,169.9779
+"Soledad, City of",2710011,191.3206
+"Marina Coast Water District",2710017,161.1857
+"Napa, City of",2810003,114.87625
+"American Canyon, City of",2810005,100.9093
+"Truckee-Donner Public Utilities District",2910003,180.5415
+"Anaheim, City of",3010001,154.0439
+"Brea, City of",3010002,179.8853
+"Buena Park, City of",3010003,179.8853
+"Mesa Consolidated Water District",3010004,141.1232
+"Fullerton, City of",3010010,179.8853
+"Laguna Beach County Water District",3010017,147.19325
+"La Habra, City of",3010018,179.8853
+"Golden State Water Company - West Orange",3010022,180.94265
+"Newport Beach, City of",3010023,131.5443
+"Orange, City of",3010027,154.7488
+"San Juan Capistrano, City of",3010030,112.3865
+"Golden State Water Company - Placentia",3010035,140.06585
+"San Clemente, City of",3010036,112.3865
+"Yorba Linda Water District",3010037,140.06585
+"Santa Ana, City of",3010038,154.7488
+"Seal Beach, City of",3010041,180.94265
+"South Coast Water District",3010042,112.3865
+"Tustin, City of",3010046,141.1232
+"Golden State Water Company - Cowan Heights",3010047,141.1232
+"Huntington Beach, City of",3010053,141.1232
+"Garden Grove, City of",3010062,154.0439
+"Westminster, City of",3010064,182
+"East Orange County Water District",3010068,141.1232
+"Fountain Valley, City of",3010069,141.1232
+"Moulton Niguel Water District",3010073,147.19325
+"El Toro Water District",3010079,147.19325
+"Serrano Water District",3010082,100.2464
+"Irvine Ranch Water District",3010092,131.5443
+"Trabuco Canyon Water District",3010094,131.5443
+"La Palma, City of",3010100,179.8853
+"Santa Margarita Water District",3010101,112.3865
+"North Tahoe Public Utility District",3110001,177.0057
+"Lincoln, City of",3110004,159.7735
+"Roseville, City of",3110008,166.82695
+"Tahoe City Public Utility",3110010,178.7736
+"Placer County Water Agency",3110124,161.9822
+"Beaumont-Cherry Valley Water District",3310002,50.1419
+"Blythe, City of",3310003,-133.4789
+"Desert Water Agnecy",3310005,25.08965
+"Coachella, City of",3310007,-12.0242
+"Mission Springs Water District",3310008,-12.0242
+"Eastern Municipal Water District",3310009,57.5306
+"Elsinore Valley Municipal Water District",3310012,88.633275
+"Hemet, City of",3310016,70.9501
+"Indio, City of",3310020,-12.0242
+"Jurupa Community Services District",3310021,100.2464
+"Lake Hemet Municipal Water District",3310022,62.2035
+"Riverside, City of",3310031,100.2464
+"San Jacinto, City of",3310032,62.2035
+"Corona, City of",3310037,100.2464
+"Rancho California Water District",3310038,84.7622333333334
+"Rubidoux Community Services District",3310044,100.2464
+"Western Municipal Water District of Riverside",3310049,88.633275
+"Sacramento Suburban Water District",3410001,173.8804
+"Sacramento County Water Agency",3410002,166.82695
+"Carmichael Water District",3410004,173.8804
+"Citrus Heights Water District",3410006,173.8804
+"Elk Grove Water District",3410008,168.65665
+"Fair Oaks Water District",3410009,173.8804
+"Galt, City of",3410011,177.5398
+"CA-American Water - Sacramento",3410012,166.82695
+"Folsom, City of",3410014,164.7257
+"Golden State Water Company - Cordova",3410015,166.82695
+"Orange Vale Water Company",3410016,173.8804
+"Rio Linda - Elverta Community Water District",3410018,166.82695
+"Sacramento, City of",3410020,166.82695
+"San Juan Water District",3410021,165.89335
+"Fruitridge Vista Water Co",3410023,159.7735
+"Hollister Urban Area",3510001,180.8032
+"Sunny Slope County Water District",3510003,180.8032
+"Adelanto, City of",3610001,34.6047
+"Apple Valley Ranchos Water Company",3610003,-0.911200000000002
+"West Valley Water District",3610004,100.2464
+"Big Bear Community Services District",3610008,31.90965
+"Chino, City of",3610012,100.2464
+"Loma Linda, City of",3610013,100.2464
+"Colton, City of",3610014,100.2464
+"Crestline Village Water District",3610015,34.6047
+"Cucamonga Valley Water District",3610018,100.2464
+"San Bernardino Valley Regional Urban Water Management Alliance",3610019,67.42555
+"Hesperia, City of Water District",3610024,34.6047
+"Joshua Basin Water District",3610025,-36.4271
+"Monte Vista Water District",3610029,100.2464
+"Ontario, City of",3610034,100.2464
+"Chino Hills, City of",3610036,140.06585
+"Redlands, City of",3610037,100.2464
+"Rialto, City of",3610038,100.2464
+"San Bernardino, City of",3610039,100.2464
+"Golden State Water Company - Barstow",3610043,34.6047
+"Big Bear Lake, City of",3610045,34.6047
+"Twentynine Palms Water District",3610049,-36.4271
+"Upland, City of",3610050,100.2464
+"Victorville Water District",3610052,34.6047
+"Yucaipa Valley Water District",3610055,100.2464
+"Riverside Highland Water Company",3610057,100.2464
+"East Valley Water District",3610064,100.2464
+"Hi-Desert WD",3610073,-24.22565
+"Phelan Pinon Hills Community Services District",3610120,84.62435
+"San Bernardino County Service Area 64",3610121,34.6047
+"CA-American Water - San Diego",3710001,88.33035
+"Vallecitos Water District",3710002,86.3292
+"Carlsbad Municipal Water District",3710005,86.3292
+"Escondido, City of",3710006,90.55415
+"Fallbrook PUD",3710008,92.8041333333333
+"Helix Water District",3710010,94.7791
+"Lakeside Water District",3710013,94.7791
+"Oceanside, City of",3710014,86.3292
+"Poway, City of",3710015,94.7791
+"Rainbow Municipal Water District",3710016,83.01295
+"Ramona Municipal Water District",3710019,94.7791
+"San Diego, City of",3710020,88.33035
+"San Dieguito Water District",3710021,86.3292
+"Santa Fe Irrigation District",3710023,90.55415
+"Sweetwater Authority",3710025,94.7791
+"Valley Center Municipal Water District",3710026,90.55415
+"Vista Irrigation District",3710027,86.3292
+"Olivenhain, City of",3710029,90.55415
+"Otay Water District",3710034,88.33035
+"Padre Dam Municipal Water District",3710037,94.7791
+"San Diego County Water Authority",3710042,87.6632999999999
+"Rincon del Diablo Municipal Water District",3710044,94.7791
+"San Francisco Public Utilities Commission",3810011,129.303833333333
+"CA Water Sercice Co - Stockton",3910001,178.717325
+"Lodi, City of",3910004,177.5398
+"Stockton East Water District",3910006,178.717325
+"Tracy, City of",3910011,173.4248
+"Stockton, City of",3910012,178.717325
+"Arroyo Grande, City of",4010001,174.4465
+"Grover Beach, City of",4010004,174.4465
+"Paso Robles, City of",4010007,197.44235
+"Pismo Beach, City of",4010008,174.4465
+"San Luis Obispo, City of",4010009,189.777066666667
+"Morro Bay, City of",4010011,174.4465
+"Cambria Community Services District",4010014,174.4465
+"Nipomo Community Services District",4010026,187.6013
+"Mid-Peninsula Water District",4110001,151.6393
+"Burlingame, City of",4110003,151.6393
+"CA Water Service Co - Bear Gulch",4110006,146.8828
+"CA Water Service Co - Mid Peninsula District",4110008,151.6393
+"CA Water Service Co - South San Francisco",4110009,143.5011
+"Coastside Co Water District",4110011,135.3629
+"Daly City, City of",4110013,143.5011
+"Hillsborough, Town of",4110016,151.6393
+"Menlo Park, City of",4110017,146.8828
+"Millbrae, City of",4110018,151.6393
+"Estero Municipal-Foster City",4110021,151.6393
+"Redwood City, City of",4110022,146.8828
+"San Bruno, City of",4110023,143.5011
+"East Palo Alto, City of",4110024,146.8828
+"North Coast County Water District",4110025,135.3629
+"Westborough Water District",4110027,143.5011
+"Carpenteria Valley Water District",4210001,198.0535
+"Goleta Water District",4210004,198.0535
+"Lompoc, City of",4210006,198.8082
+"Santa Barbara, City of",4210010,198.0535
+"Santa Maria, City of",4210011,200.7561
+"Golden State Water Company - Orcutt",4210016,200.7561
+"Ca Water Service Co - Los Altos Suburban District",4310001,142.1263
+"Gilroy, City of",4310004,180.8032
+"Milpitas, City of",4310005,142.1263
+"Morgan Hill, City of",4310006,161.46475
+"Mountain View, City of",4310007,142.1263
+"Palo Alto, City of",4310009,138.7446
+"San Jose Water Company",4310011,135.1589
+"Santa Clara, City of",4310012,142.1263
+"Sunnyvale, City of",4310014,142.1263
+"San Jose, City of",4310020,142.1263
+"Great Oaks Water Company",4310022,142.1263
+"Santa Clara Valley Water District",4310027,156.454866666666
+"Santa Cruz, City of",4410010,128.1915
+"Watsonville, City of",4410011,154.49735
+"Scotts Valley Water District",4410013,128.1915
+"Soquel Creek Water District",4410017,128.1915
+"Redding, City of",4510005,97.36535
+"Shasta Lake, City of",4510006,88.3057666666665
+"Bella Vista Water District",4510014,123.15165
+"Yreka, City of",4710011,37.711
+"Benecia, City of",4810001,128.8432
+"CA Water Service Co - Dixon District",4810002,159.7735
+"Fairfield, City of",4810003,128.8432
+"Rio Vista, City of",4810004,159.7735
+"Vallejo, City of",4810007,114.87625
+"Vacaville, City of",4810008,144.30835
+"Sweetwater Springs Water District",4910004,73.3049
+"Petaluma, City of",4910006,100.9093
+"Santa Rosa, City of",4910009,87.1071
+"Sonoma, City of",4910012,100.9093
+"Valley of the Moon Water District",4910013,100.9093
+"Rohnert Park, City of",4910014,87.1071
+"Windsor, town of Water District",4910017,73.3049
+"CA Water Service Co - Redwood Valley",4910018,73.3049
+"Patterson, City of",5010017,185.1403
+"Riverbank, City of",5010018,185.1403
+"Turlock, City of",5010019,185.1403
+"Ceres, City of",5010028,185.1403
+"Modesto, City of",5010033,185.1403
+"Modesto Irrigation District",5010038,185.1403
+"South San Joaquin Irrigation District",5010040,179.28255
+"Yuba City, City of",5110002,173.927
+"Red Bluff, City of",5210004,127.1148
+"Dinuba, City of",5410002,203.0267
+"Exeter, City of",5410003,203.0267
+"Porterville, City of",5410010,203.0267
+"Tulare, City of",5410015,203.0267
+"CA Water Service Co - Visalia",5410041,203.0267
+"Tuolumne Utilities District",5510003,180.2638
+"Groveland Community Services District",5510009,180.2638
+"Oxnard, City of",5610007,186.446066666667
+"Port Hueneme, City of",5610009,182
+"Santa Paula, City of",5610011,186.7674
+"Golden State Water Company - Ojai",5610014,190.5708
+"San Buenaventura, City of",5610017,186.446066666667
+"Camarillo, City of",5610019,182
+"Ventura County Waterworks District #8",5610023,181.98625
+"Casitas Municipal Water District",5610024,191.797233333333
+"CA-American Water - Ventura",5610040,182
+"Triunfo Sanitation District",5610043,182
+"United Water Conservation District",5610046,186.446066666667
+"Calleguas Municipal Water District",5610050,183.184975
+"Golden State Water Company - Simi Valley",5610059,182
+"Camrosa Water District",5610063,182
+"Port Hueneme Water Agency",5610080,182
+"Davis City of",5710001,159.7735
+"West Sacramento, City of",5710003,159.7735
+"Woodland, City of",5710006,159.7735
+"CA Water Service Co - Marysville",5810001,173.9097
+"Linda County Water District",5810002,173.927
+"Olivehurst Public Utilities District",5810003,173.9635
