@@ -21,7 +21,7 @@ dat <- dat %>% left_join(sev.new,by=c("pwsid"="pwsid","district"="pwsname")) %>%
   select(-severity.x) %>%
   rename(severity=severity.y)
 
-write.csv(dat,file=paste0(WD,"/data/full_dat_08_24_2016.csv"))
+write.csv(dat,file=paste0(WD,"/data/full_dat_08_24_2016.csv"),row.names = F)
 
 ```
 
